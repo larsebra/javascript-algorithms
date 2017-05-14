@@ -1,5 +1,6 @@
 # javascript-algorithms
-Algorithms and datastructures implemented in javascript.
+Algorithms and datastructures implemented in javascript. The motivation for this project is to get to know javascript as a language, especially the new ecmascript standards.
+Many of the implementation uses these new language features that the new ecmascript standards provides.
 ## Algorithms
 ### Search Algorithms
 #### Binary Search
@@ -12,3 +13,6 @@ The binary search algorithm is depended on some properties of the inpur elements
 - Best case : O(1), constant time, this could happen if the item to search for is in the middle of the collection of all items.
 ### Sort Algorithms
 ## Datastructures
+### Lists
+#### Linked Lists
+##### Linked Lists
