@@ -1,6 +1,6 @@
 # javascript-algorithms
 Algorithms and datastructures implemented in javascript. The motivation for this project is to get to know javascript as a language, especially the new ecmascript standards.
-Many of the implementation uses these new language features that the new ecmascript standards provides.
+Many of the implementation uses these new language features the ecmascript standard provides.
 ## Algorithms
 ### Search Algorithms
 #### Linear Search
