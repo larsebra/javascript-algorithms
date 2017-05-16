@@ -25,6 +25,10 @@ Bubblesort is a fun algorithm for sorting elements in a collection. It is not ve
 collections  because of its poor performance
 ##### Performance
 - Worst case: O(n^2), Where n is the numbers of items in the given collection.
+#### Selection Sort
+Selection sort is simple algorithm for sorting elemtns in a collection. At each iteration it searches for the smallest item in the list, when found it is swapping the leftmost element in the list with the smallest value, at each iteration the leftmost pointer is incremented since the smallest value at each iteration is found. At the next iteration it starts of from the leftmost pointer which is now been incremented by one. Selection sort should not be used on large collections due to its poor performance.
+##### Performance
+- Worst case: O(n^2), Where n is the numbers of items in the given collection.
 ## Datastructures
 ### Lists
 #### Linked Lists
