@@ -4,7 +4,7 @@ Many of the implementation uses these new language features the ecmascript stand
 ## Algorithms
 Algorithms for searching and sorting in a collection is explained as they are implemented. For further information see the implementation, comments and the jsDoc(not generated yet).
 ### Search Algorithms
-In this section a couple of well known algorithms for searching in a collection is adressed. 
+In this section a couple of well known algorithms for searching in a collection is adressed.
 #### Linear Search
 Linear search algorithm is a algorithm that searches through the elements, one by one, from the first element in the collection to the end elment. More info wil come.
 Linear Search algorithm depends has no assumption on the input collection in order for it to work:
@@ -24,7 +24,7 @@ The binary search algorithm is depended on some properties of the relationship b
 Bubblesort is a fun algorithm for sorting elements in a collection. It is not very effective but it is easy and fun to implement. Bubblesort should not be used on large
 collections  because of its poor performance
 ##### Performance
-- Worst case: O(n), Where n is the numbers of items in the given collection.
+- Worst case: O(n^2), Where n is the numbers of items in the given collection.
 ## Datastructures
 ### Lists
 #### Linked Lists
