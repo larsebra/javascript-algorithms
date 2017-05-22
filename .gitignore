@@ -1,0 +1,7 @@
+#Describes which files the version controll system should ignore.
+#Folders
+dist/
+node_modules/
+#Files
+index.js
+webpack.config.js
