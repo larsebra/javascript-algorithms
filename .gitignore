@@ -4,4 +4,3 @@ dist/
 node_modules/
 #Files
 index.js
-webpack.config.js
