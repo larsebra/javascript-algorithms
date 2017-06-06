@@ -1,3 +1,4 @@
+import {randomNumberInRange} from "./Random"
 /**
   @function compareArray
 
@@ -9,7 +10,7 @@
 
   @author Lars Erik Bratlie <lars00.brat@gmail.com>
 **/
-function compareArray(array1,array2){
+export function compareArray(array1,array2){
   if(array1.length!=array2.length)
     return false;
   for(var i = 0; i < array1.length; i++){
@@ -20,4 +21,27 @@ function compareArray(array1,array2){
   return true;
 }
 
-export default compareArray;
+/**
+ * randomArrayGenerator - Generates an array of given size filled with random values in the given range.
+ *
+ * @param  {Number}  range            The range the random number should be in. Every number will be from + to given range.
+ * @param  {Number}  numberOfElements The number of random numbers that should be generated, this is also the size of the array.
+ * @param  {Number}  seed             description
+ * @param  {Boolean} negativeNumbers  Allow negative numbers in the array.
+ * @param  {Boolean} sameNumber       Allow sameNumber to occour.
+ * @return {Array}                    An array filled with random numbers
+ */
+export function randomArrayGenerator(range, numberOfElements, seed, negativeNumbers){
+  var array = new Array(numberOfElements);
+  var i = 0;
+  var randomNum;
+  while(i < numberOfElements){
+    randomNum = randomNumberInRange(range);
+    if(negativeNumbers){
+        randomNum = (Math.round(Math.random()) === 1) ? randomNum :-1 * randomNum;
+    }
+    array[i] = randomNum;
+    i++;
+  }
+  return array;
+}
