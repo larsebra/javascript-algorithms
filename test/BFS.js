@@ -14,7 +14,6 @@ describe("BFS", function(){
   ];
   var BFSShortestPath = breadthFirstSearch(0, 3, graph1);
   var actualShortestPath = [0,1,2,3];
-  console.log(BFSShortestPath,actualShortestPath);
   expect(compareArray(actualShortestPath, BFSShortestPath)).to.be.true;
   })
 });
