@@ -1,31 +1,50 @@
 /**
-  @function selectionSort
-
-  Selectionsort implemented as a pure JavaScript function. Selection sort should not be used on large collection
-  due to its poor performance.
-
-  Performance:
-    -Worst case: O(n^2)
-
-  @param {Array} array - The array that is going to be sorted. The input array is not tampered with or changed in anyway
-  @return {Array} sortedArray - The sorted array, it is worth noting that the input array is not the same as the sortedArray
-
-  @author Lars Erik Bratlie <lars00.brat@gmail.com>
-**/
-function selectionSort(array){
-  var sortedArray = array.slice(0);//copy array, ES6 spread operator will be used when I have configured babel transpiler
+ *     ,-.  ,--. ,    ,--.  ,-. ,---. ,  ,-.  .  .  ,-.   ,-.  ,-.  ,---.
+ *    (   ` |    |    |    /      |   | /   \ |\ | (   ` /   \ |  )   |
+ *     `-.  |-   |    |-   |      |   | |   | | \|  `-.  |   | |-<    |
+ *    .   ) |    |    |    \      |   | \   / |  | .   ) \   / |  \   |
+ *     `-'  `--' `--' `--'  `-'   '   '  `-'  '  '  `-'   `-'  '  '   '
+ *
+ * selectionSort - Selectionsort implemented as a pure JavaScript function. Selection sort should not be used on
+ * large collection due to its poor performance. It uses the given
+ * comparator function to order the elements, see below for more information on the comparator function.
+ *
+ * The comparator function should have the following form: compare(a,b), and return a number; > 0, < 0 or 0.
+ * If ascending order is wanted, compare(a, b) must yield a number < 0, this will sort a to an index lower than b.
+ * If descending order is wanted, compare(a, b) must yield a number > 0, this will sort a to an index higher than b.
+ * If compare(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements
+ * compare(a, b) must always return the same value when given a specific pair of elements a and b as its two arguments.
+ * If inconsistent results are returned then the sort order is undefined.
+ *
+ * Performance:
+ *  -Worst case: O(n^2)
+ *
+ * @param {Array} array - The array that is going to be sorted. The input array is not tampered with or changed in any way
+ * @param {Function} comparator description
+ * @return {Array} sortedArray - The sorted array.
+ *
+ * @author Lars Erik Bratlie <lars00.brat@gmail.com>
+ */
+function selectionSort(array, comparator){
+  var sortedArray = array.slice(0);
   for(var x = 0; x < sortedArray.length - 1; x++){
-    var smallest = sortedArray[x];
-    var smallest_index = x;
+
+    //Either the largest or the smallest value for each iteration is stored, depends on the comparator.
+    var compVal = sortedArray[x];
+    //The index value of the largest or smallest value.
+    var compVal_index = x;
+
+    //Find the largest or smallest value in the rest array.
     for(var y = x + 1; y < sortedArray.length; y++){
-      if(smallest > sortedArray[y]){
-        smallest = sortedArray[y];
-        smallest_index = y;
+      if(comparator(compVal, sortedArray[y]) > 0){
+        compVal = sortedArray[y];
+        compVal_index = y;
       }
     }
-    sortedArray[smallest_index] = sortedArray[x];//Swapping the elements
-    sortedArray[x] = smallest;
+    sortedArray[compVal_index] = sortedArray[x];//Swapping the elements
+    sortedArray[x] = compVal;
   }
   return sortedArray;
 }
+
 export default selectionSort;

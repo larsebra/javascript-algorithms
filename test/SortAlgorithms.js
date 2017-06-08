@@ -7,7 +7,7 @@ import selectionSort from "../src/Sort Algorithms/SelectionSort";
 import bubbleSort from "../src/Sort Algorithms/BubbleSort";
 
 
-describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with bubble sort and selection sort", function () {
+describe("Linear Sort Algorithms: Sorting 100000 random numbers", function () {
 
   var randomArray = randomArrayGenerator(100000, 100000, -1, true);
   var asceArray = randomArray.slice(0);
@@ -17,11 +17,14 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with
     it("Googles quicksort should sort the array of 100000 random numbers in ascending order within reasonable time", function () {
       this.timeout(1000);
       asceArray.sort((a,b) => {
-        if(a > b){
+        if(a < b){
+          return -1;
+        }
+        else if(a > b){
           return 1;
         }
-        else {
-          return -1;
+        else{
+          return 0;
         }
       });
     });
@@ -31,8 +34,11 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with
         if(a < b){
           return 1;
         }
-        else {
+        else if(a > b){
           return -1;
+        }
+        else{
+          return 0;
         }
       });
     });
@@ -54,7 +60,7 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with
         }
       }
       quickSort(array1, comparator);
-      expect(compareArray(array1, asceArray)).to.equal(true);
+      expect(compareArray(array1, asceArray)).to.be.true;
     });
 
     it('Should sort the array elements in descending order as googles quicksort does.', () => {
@@ -72,12 +78,12 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with
         }
       }
       quickSort(array1, comparator);
-      expect(compareArray(array1, descArray)).to.equal(true);
+      expect(compareArray(array1, descArray)).to.be.true;
     });
   });
 
   describe('MergeSort', function () {
-    it('Should sort the elements correctly in the same order as the native environment sort algorithm does.', function() {
+    it('Should sort the elements correctly in incrementing order as the native environment sort algorithm does.', function() {
       this.timeout(1000);
       var array1 = randomArray.slice(0);
       var comparator = function(a,b) {
@@ -92,9 +98,9 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with
         }
       }
       array1 = mergeSort(array1, comparator);//This is a pure function so it will return a new array;
-      expect(compareArray(array1, asceArray)).to.equal(true);
+      expect(compareArray(array1, asceArray)).to.be.true;
     });
-    it('Should sort the elements correctly in the same order as the native environment sort algorithm does.', function() {
+    it('Should sort the elements correctly in descending order as the native environment sort algorithm does.', function() {
       this.timeout(1000);
       var array1 = randomArray.slice(0);
       var comparator = function(a,b) {
@@ -109,28 +115,118 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with
         }
       }
       array1 = mergeSort(array1, comparator);//This is a pure function so it will return a new array;
-      expect(compareArray(array1, descArray)).to.equal(true);
-    });
-  });
-/*
-  describe('SelectionSort', function () {
-    this.timeout(10000);
-    it('Expect that selection sort sorts the element in the same order as native environment sort algorithm does.', function() {
-      //var array1 = randomArrayGenerator(10000, 50000, -1, true);
-      var array1 = randomArray.slice(0);
-      array1 = selectionSort(array1);//This is a pure function so it will return a new array;
-      expect(compareArray(array1, array2)).to.equal(true);
+      expect(compareArray(array1, descArray)).to.be.true;
     });
   });
 
-  describe('BubbleSort', function() {
-    this.timeout(10000);
-    it('Expect that bubble sort sorts the element in the same order as native environment sort algorithm does.', () => {
-      //var array1 = randomArrayGenerator(10000, 50000, -1, true);
-      var array1 = randomArray.slice(0);
-      array1 = selectionSort(array1);//This is a pure function so it will return a new array;
-      expect(compareArray(array1, array2)).to.equal(true);
+  /**
+    * Making a smaller random array for bubble sort and selections sort, they are so slow on large arrays.
+    */
+
+  var randomSBArray = randomArrayGenerator(1000, 1000, -1, true);
+  var asceSBArray = randomSBArray.slice(0);
+  var descSBArray = randomSBArray.slice(0);
+
+  //Use native sorting algorithm to sort in ascending order.
+  asceSBArray.sort((a,b) => {
+        if(a < b){
+          return -1;
+        }
+        else if(a > b){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+      });
+
+  //Use native sorting algorithm to sort in descening order.
+  descSBArray.sort((a,b) => {
+      if(a < b){
+        return 1;
+      }
+      else if(a > b){
+        return -1;
+      }
+      else{
+        return 0;
+      }
+    });
+
+  describe('SelectionSort, Sorting 1000 elements', function () {
+    it('Should sort the elements correctly in ascending order as the native environment sort algorithm does.', function() {
+      this.timeout(1000);
+      var array1 = randomSBArray.slice(0);
+      var comparator = function(a,b) {
+        if(a < b){
+          return -1;
+        }
+        else if(a > b){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+      }
+      array1 = selectionSort(array1, comparator);//This is a pure function so it will return a new array;
+      expect(compareArray(array1, asceSBArray)).to.be.true;
+    });
+
+    it('Should sort the elements correctly in descending order as the native environment sort algorithm does.', function() {
+      this.timeout(1000);
+      var array1 = randomSBArray.slice(0);
+      var comparator = function(a,b) {
+        if(a < b){
+          return 1;
+        }
+        else if(a > b){
+          return -1;
+        }
+        else{
+          return 0;
+        }
+      }
+      array1 = selectionSort(array1, comparator);//This is a pure function so it will return a new array;
+      expect(compareArray(array1, descSBArray)).to.be.true;
     });
   });
-*/
+
+  describe('BubbleSort, sorting 1000 elements', function () {
+    it('Should sort the elements correctly in ascending order as the native environment sort algorithm does.', function() {
+      this.timeout(1000);
+      var array1 = randomSBArray.slice(0);
+      var comparator = function(a,b) {
+        if(a < b){
+          return -1;
+        }
+        else if(a > b){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+      }
+      array1 = bubbleSort(array1, comparator);//This is a pure function so it will return a new array;
+      expect(compareArray(array1, asceSBArray)).to.be.true;
+    });
+
+    it('Should sort the elements correctly in descending order as the native environment sort algorithm does.', function() {
+      this.timeout(1000);
+      var array1 = randomSBArray.slice(0);
+      var comparator = function(a,b) {
+        if(a < b){
+          return 1;
+        }
+        else if(a > b){
+          return -1;
+        }
+        else{
+          return 0;
+        }
+      }
+      array1 = bubbleSort(array1, comparator);//This is a pure function so it will return a new array;
+      expect(compareArray(array1, descSBArray)).to.be.true;
+    });
+  });
+
 })
