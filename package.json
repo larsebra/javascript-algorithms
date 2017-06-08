@@ -4,8 +4,8 @@
   "description": "A JS implementation of well known algorithms and datastructures",
   "main": "index.js",
   "scripts": {
-    "transpile": "echo Hello",
-    "test": "mocha --compilers js:babel-register --require babel-polyfill"
+    "test": "mocha --compilers js:babel-register --require babel-polyfill",
+    "build": ""
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,8 @@
     "algorithm",
     "datastructure"
   ],
-  "author": "Lars Erik Bratlie and everybody else",
-  "license": "ISC",
+  "author": "Lars Erik Bratlie and anybody who contributes",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/larsebra/javascript-algorithms/issues"
   },

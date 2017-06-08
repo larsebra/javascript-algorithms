@@ -5,7 +5,7 @@ module.exports = {
 
   output: {
     filename: "lib.js",
-    path: __dirname + "/dist",
+    path: __dirname + "/lib",
   },
 
   resolve:{

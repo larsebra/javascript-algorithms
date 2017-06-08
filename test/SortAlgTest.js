@@ -1,10 +1,10 @@
 import {expect} from "chai";
 import {compareArray, randomArrayGenerator } from "./test-tools/Arrays.js";
 
-import quickSort from "../lib/Sort Algorithms/QuickSort.js";
-import mergeSort from "../lib/Sort Algorithms/MergeSort.js";
-import selectionSort from "../lib/Sort Algorithms/SelectionSort.js";
-import bubbleSort from "../lib/Sort Algorithms/BubbleSort.js";
+import quickSort from "../src/Sort Algorithms/QuickSort.js";
+import mergeSort from "../src/Sort Algorithms/MergeSort.js";
+import selectionSort from "../src/Sort Algorithms/SelectionSort.js";
+import bubbleSort from "../src/Sort Algorithms/BubbleSort.js";
 
 
 describe("Linear Sort Algorithms: Sorting 100000 random numbers, be patient with bubble sort and selection sort", function () {

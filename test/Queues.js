@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {randomArrayGenerator} from "./test-tools/Arrays.js";
-import {Queue, QueueAsNativeArray} from "../lib/Data Structures/Linear Structures/Queues.js";
+import {Queue, QueueAsNativeArray} from "../src/Data Structures/Linear Structures/Queues.js";
 
 describe('Queues', function() {
 

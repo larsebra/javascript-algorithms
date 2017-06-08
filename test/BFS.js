@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {compareArray} from "./test-tools/Arrays.js"
-import {breadthFirstSearch} from "../lib/Path Finding/BFS.js"
+import {breadthFirstSearch} from "../src/Path Finding/BFS.js"
 
 describe("BFS", function(){
   it("should find the shortest path in an unwheightet graph", function(){

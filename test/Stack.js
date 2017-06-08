@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import Stack from "../lib/Data Structures/Linear Structures/Stack.js";
+import Stack from "../src/Data Structures/Linear Structures/Stack.js";
 
 describe('Stack', () => {
   it('Should push and pop correctly', () => {

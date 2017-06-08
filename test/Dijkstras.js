@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {compareArray} from "./test-tools/Arrays.js";
-import {dijkstras} from "../lib/Path Finding/Dijstras.js";
+import {dijkstras} from "../src/Path Finding/Dijstras.js";
 
 describe("Dijstras Shortest Path Algorithm", function(){
   it("Should find the shortest path",function(){

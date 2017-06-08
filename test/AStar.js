@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {AStar} from "../lib/Path Finding/A*";
+import {AStar} from "../src/Path Finding/A*";
 import {compareArray} from "./test-tools/Arrays.js";
 
 describe("A*", ()=>{

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import LinkedList from "../lib/Data Structures/Linear Structures/LinkedList"
+import LinkedList from "../src/Data Structures/Linear Structures/LinkedList"
 
 describe("LinkedList", function(){
   var list = new LinkedList();

@@ -1,8 +1,8 @@
 import {expect} from "chai";
 import {randomArrayGenerator } from "./test-tools/Arrays.js";
 
-import BinHeap from "../lib/Data Structures/Trees/BinHeap.js";
-import Node from "../lib/Common/Node.js";
+import BinHeap from "../src/Data Structures/Trees/BinHeap.js";
+import Node from "../src/Common/Node.js";
 
 describe("Binary Heap", () => {
   //Make an array that is going to be added to the heap. This array is not changed belowed.

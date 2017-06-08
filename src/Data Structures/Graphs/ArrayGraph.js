@@ -1,10 +1,11 @@
 import Node from "../../Common/Node.js"
 import BinHeap from "../Trees/BinHeap";
 /**
- * Class representing a undirected Graph. 
+ * Class representing a undirected Graph.
  * Primitive datatypes used for construction: Array.
  * Space Complexity: |V^2|.
  * @class
+ * @todo finish class. Not finished.
  */
 class ArrayGraph{
   constructor(numberOfNodes, cost){
