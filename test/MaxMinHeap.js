@@ -40,7 +40,7 @@ describe("Binary Heap", () => {
         mh.add(Math.round(Math.random() * to));
         expect(mh.size()).to.equal(i + 1, "Size seems to return wrong number when adding elements");
       }
-      for(i; i >= 0; i--){
+      for(i; i > 0; i--){
         expect(mh.size()).to.equal(i, "Size seems to return wrong number when removing elements");
         mh.remove();
       }
@@ -137,7 +137,7 @@ describe("Binary Heap", () => {
         mh.add(Math.round(Math.random() * to));
         expect(mh.size()).to.equal(i + 1, "Size seems to return wrong number when adding elements");
       }
-      for(i; i >= 0; i--){
+      for(i; i > 0; i--){
         expect(mh.size()).to.equal(i, "Size seems to return wrong number when removing elements");
         mh.remove();
       }

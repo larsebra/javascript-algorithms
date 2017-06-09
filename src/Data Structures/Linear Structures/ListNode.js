@@ -3,13 +3,15 @@ import Node from "../../Common/Node.js"
 class ListNode extends Node {
 
   /**
-   * constructor - description
+   * constructor - Sets next and value for this node
    *
-   * @param  {Object} value The value this node represents
-   * @return {type}       description
+   * @param  {Object} value value
+   * @param  {DoubleLinkedListNode} next  next pointer
+   * @return {Void}       nothing
    */
   constructor(value, next){
     super(value);
+    this.next = null;
     this.setNext(next);
   }
 

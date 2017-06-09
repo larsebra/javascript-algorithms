@@ -1,4 +1,3 @@
-import Node from "../../Common/Node.js";
 import swap from "../../Common/Swap.js";
 /**
  * Heap implemented with an array. It can either be a binary min heap or a binary max heap.
@@ -10,7 +9,6 @@ import swap from "../../Common/Swap.js";
  * @todo add support for comparator function
  */
 class BinHeap{
-
   /**
    * constructor - The comparator function determines if the heap is a
    * binary minimum heap or a binary maximum heap. This is done by correctly
@@ -53,12 +51,14 @@ class BinHeap{
    * remove - removes the root node
    *
    * @return {Node}  returns the root node.
-   * @Todo throw something when empty
+   * @throws {EmptyHeapError} When heap is empty.
    */
   remove(){
     if(this.isEmpty()){
-      //Throw
-      return undefined;
+      var e = new Error();
+      e.name = "EmptyHeapError";
+      e.message = "Cannot remove root, heap is empty";
+      throw e;
     }
     if(this.size() === 1){
       return this.heap.pop();
@@ -137,6 +137,12 @@ class BinHeap{
    */
   peek(){
     if(this.isEmpty()){
+      var e = new Error();
+      e.name = "EmptyHeapError";
+      e.message = "Cannot peek at root, heap is empty";
+      throw e;
+    }
+    if(this.isEmpty()){
       //Throw
     }
     return this.heap[0];
@@ -175,8 +181,7 @@ class BinHeap{
   }
 
   /**
-   * empty - Empties the heap, I am not sure what people will use this for.
-   * The old array is removed by pointing the heap array variable of this object to referencing a new array,
+   * The old array is removed by pointing the heap array variable to referencing a new array,
    * if array is not referenced by outside objects, the garbage collector will remove it from memory, and there should not, be any
    * memory leakage.
    *

@@ -1,9 +1,10 @@
 /**
  * Class representing a queue. It uses an array of given size as base structure.
- * This queues is implemented as a circular array or ring buffer using modulus arithmetic. It is faster than using Array class
- * native methods(Push and shift) for queueing an enqueueing. There is one limitiation however, the queues size is finite, it
- * has the size of the given value, this size is given to the constructor. It is called queue because this is, as for now, the
- * standard linear queue of the lib.
+ * This queues is implemented as a circular array or ring buffer using modulus arithmetic.
+ * It is faster than using Array class native methods(Push and shift) for queueing an enqueueing.
+ * There is one limitiation however, the queues size is finite, it has the size of the given value,
+ * this size is given to the constructor. It is called queue because this is, as for now, the standard
+ * linear queue of the lib.
  */
 export class Queue{
  /**

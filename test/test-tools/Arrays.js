@@ -1,4 +1,4 @@
-import {randomNumberInRange} from "./Random"
+import {randomIntegerInRange} from "./Random"
 /**
   @function compareArray
 
@@ -36,7 +36,7 @@ export function randomArrayGenerator(range, numberOfElements, seed, negativeNumb
   var i = 0;
   var randomNum;
   while(i < numberOfElements){
-    randomNum = randomNumberInRange(range);
+    randomNum = randomIntegerInRange(range);
     if(negativeNumbers){
         randomNum = (Math.round(Math.random()) === 1) ? randomNum :-1 * randomNum;
     }
