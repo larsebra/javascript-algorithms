@@ -1,6 +1,15 @@
 import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
 /**
- * Class representing a double linked list.
+ *   +----------------------------------------------------------+
+ *   |   +-----+        +-----+        +-----+        +-----+   |
+ *   +--->     +-------->     +-------->     +-------->     +---+
+ *       |  A  |        |  B  |        |  C  |        |     |
+ *   +---+     <--------+     <--------+     <--------+     <---+
+ *   |   +-----+        +-----+        +-----+        +-----+   |
+ *   +----------------------------------------------------------+
+ *
+ * Class representing a circular double linked list.
+ *
  * @todo make iterable if possible
  * @todo make toString
  */
