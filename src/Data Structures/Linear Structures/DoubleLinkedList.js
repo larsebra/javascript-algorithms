@@ -1,7 +1,7 @@
 import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
 /**
  * Class representing a circular double linked list. List index starts at 0 and goes to
- * size - 1.
+ * length - 1.
  *
  * +----------------------------------------------------------+
  * |   +-----+        +-----+        +-----+        +-----+   |
@@ -136,16 +136,16 @@ export default class LinkedList{
    * @throws {EmptyListError} if list is empty
    */
   addInPosition(val, index){
-    if(this.isEmpty()){
+    if((index > 0) && this.isEmpty()){
       var e = new Error();
       e.name = "EmptyListError";
-      e.message = "Cannot remove element, list is empty";
+      e.message = "Cannot add element at index "+ index +", list is empty";
       throw e;
     }
     if(!((0 <= index) && (index <= this.size()))){
       var e = new RangeError();
       e.name = "IndexOutOfBoundsError";
-      e.message = "Cannot add element in index "+ index +", allowed range s 0 - " + this.size();
+      e.message = "Cannot add element in index "+ index +", allowed range s 0 - " + this.size() - 1;
       throw e;
     }
 
@@ -203,7 +203,7 @@ export default class LinkedList{
     if(!((0 <= index) && (index < this.size()))){
       var e = new RangeError();
       e.name = "IndexOutOfBoundsError";
-      e.message = "Cannot get element in index "+ index +", current list size are " + this.size();
+      e.message = "Cannot add element in index "+ index +", allowed range s 0 - " + this.size() - 1;
       throw e;
     }
     var nextElement = this.first;
@@ -334,7 +334,7 @@ export default class LinkedList{
     if(!((0 <= index) && (index < this.size()))){
       var e = new RangeError();
       e.name = "IndexOutOfBoundsError";
-      e.message = "Cannot remove element at index "+ index +", must be within bounds. Current allowed range is: 0 - " + this.size();
+      e.message = "Cannot remove element at index "+ index +", must be within bounds. Current allowed range is: 0 - " + this.size() - 1;
       throw e;
     }
 

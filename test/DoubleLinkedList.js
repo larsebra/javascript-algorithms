@@ -10,6 +10,7 @@ describe("DoubleLinkedList", function(){
   var to = 10000; //Just a variable that decides how many elements to remove and add
   var lastLast = 0;//Variable that always points to the last value in list
   var lastFirst = 0;//Variable that always points to the first value in list
+  var listAsItShouldBe = [];
 
   it("should be empty at start", function(){
     expect(list.isEmpty()).to.be.true;
@@ -31,9 +32,10 @@ describe("DoubleLinkedList", function(){
         else {
           expect(list.addInPosition(lastFirst, 0)).to.equal(i + 1, "addFirst should increment list size when adding to list");
         }
+
+        expect(list.peekFirst()).to.equal(lastFirst, "Peek first does not return correct value");
       }
       else{
-
         lastLast = i;
 
         // Alter between method to use for adding
@@ -43,9 +45,10 @@ describe("DoubleLinkedList", function(){
         else {
           expect(list.addInPosition(lastLast, i)).to.equal(i + 1, "addInPosition should increment list size when adding to list");
         }
+
+        expect(list.peekLast()).to.equal(lastLast, "Peek last does not return correct value");
       }
-      expect(list.peekFirst()).to.equal(lastFirst, "Peek first does not return correct value");
-      expect(list.peekLast()).to.equal(lastLast, "Peek last does not return correct value");
+
       expect(list.size()).to.equal(i + 1, "Size() should increment when adding to list");
     }
   });
@@ -145,6 +148,73 @@ describe("DoubleLinkedList", function(){
     }
   });
 
+  it("should insert in position correctly", function(){
+
+    var numbersToAdd = 10;
+    var numbersToAddInMiddle = Math.round(numbersToAdd / 2);
+    var randomNumber = 0;
+    var randomNumRange = 1000;
+    var middle = Math.round(numbersToAdd / 2);
+
+    //Adding numbers in order
+    for(i = 0; i < numbersToAdd; i++){
+        expect(list.addLast(i + 1)).to.equal(i + 1, "addLast should increment list size when adding to list");
+        if(i < middle){
+          listAsItShouldBe.push(i + 1);
+        }
+    }
+
+    //Check that add added correctly, the list should be in ascending order.
+    for(i = 0; i < numbersToAdd; i++){
+      expect(list.getValAtPosition(i)).to.equal(i + 1, "getValAtPosition should return correct number");
+    }
+
+    //Replace some of the values in the middle of the list with random values
+    for(i = 0; i < numbersToAddInMiddle; i++){
+      randomNumber = randomIntegerInRange(randomNumRange);
+      var oldSize = list.size();
+      expect(list.addInPosition(randomNumber, middle)).to.equal(oldSize + 1, "addLast should increment list size when adding to list");
+
+      //The addInPosition method gives the same result as Arrays splice.
+      listAsItShouldBe.splice(middle, 0, randomNumber)
+    }
+
+    //Add rest of the numbers in expected
+    for(i = middle; i < numbersToAdd; i++){
+      listAsItShouldBe.push(i + 1);
+    }
+
+    //Check that numbers are correspond with the expected correct array.
+    for(i = 0; i < numbersToAdd + numbersToAddInMiddle; i++){
+      expect(list.getValAtPosition(i)).to.equal(listAsItShouldBe[i], "list should be equal to expected value");
+    }
+  });
+
+  it("should remove in position correctly", function(){
+    var correctElementToRemove = 0;
+    var middle = Math.floor((list.size() / 2)) - 1;
+    var to = Math.floor(list.size() / 3);
+
+    for(i = 0; i < to; i++){
+      correctElementToRemove = listAsItShouldBe.splice(middle , 1)[0];
+      var removedEl = list.removeAtPosition(middle);
+      expect(removedEl).to.equal(correctElementToRemove, "Should remove correct element");
+    }
+
+    for(i = 0; i < to; i++){
+      correctElementToRemove = listAsItShouldBe.splice(i , 1)[0];
+      var removedEl = list.removeAtPosition(i);
+      expect(removedEl).to.equal(correctElementToRemove, "Should remove correct element");
+    }
+    to = list.size();
+    for(i = 0; i < to; i++){
+      correctElementToRemove = listAsItShouldBe.splice(0 , 1)[0];
+      var removedEl = list.removeAtPosition(0);
+      expect(removedEl).to.equal(correctElementToRemove, "Should remove correct element");
+    }
+    expect(list.isEmpty()).to.be.true;
+  });
+
   it("should insert and remove correctly at given index; testing addInPosition, and removeAtPosition", function(){
     var indexToAlter = 0;
     var add = false;
@@ -154,7 +224,7 @@ describe("DoubleLinkedList", function(){
     var numbersToAdd = 10000;
     var addedNumbers = 0;
 
-    //Adding 20 numbers
+    //Adding numbers
     for(i = 0; i < numbersToAdd; i++){
 
       //Calculate a random value in range to add in the list
@@ -167,13 +237,12 @@ describe("DoubleLinkedList", function(){
       else{
         expect(list.addLast(randomVal)).to.equal(i + 1, "addLast should increment list size when adding to list");
       }
-
       addedNumbers++;
     }
 
     for(i = 0; i < (numbersToAdd-1); i++){
       //The element in position to alter.
-      indexToAlter = randomIntegerInRange(20);
+      indexToAlter = randomIntegerInRange(list.size());
 
       //Alter between removing and adding at index
       if(randomIntegerInRange(1) === 0){
@@ -193,9 +262,11 @@ describe("DoubleLinkedList", function(){
       //Check sometimes if the same number added gets removed correctly
       if(add && (randomIntegerInRange(1) === 0)){
         add = false;
-        removedVal = list.getValAtPosition(indexToAlter);
-        expect(list.removeAtPosition(indexToAlter)).to.equal(removedVal, "getValAtPosition and removeValAtPosition returns different values.");
+        removedVal = list.removeAtPosition(indexToAlter);
+        expect(randomVal).to.equal(removedVal, "randomVal and removeVal returns different values");
         addedNumbers--;
+      }else{
+        add = false;
       }
 
       expect(list.size()).to.equal(addedNumbers, "Size() should increment when adding to list");
