@@ -1,7 +1,21 @@
 import ListNode from "./ListNode.js"
 
 /**
- * Class representing a single linked list.
+ * Class representing a single linked list. It is possible to add last, add first  and remove first.
+ * Thus it can be used for a base structure in a stack or a linear queue.
+ *
+ * +-----+        +-----+        +-----+        +-----+
+ * |     |        |     |        |     |        |     |        +----+
+ * |  A  +-------->  B  +-------->  C  +-------->  D  +------->+null|
+ * |     |        |     |        |     |        |     |        +----+
+ * +--+--+        +-----+        +-----+        +--+--+
+ *    ^                                            ^
+ *    |                                            |
+ * +--+--+                                      +--+--+
+ * |First|                                      |Last |
+ * |Ptr  |                                      |Ptr  |
+ * +-----+                                      +-----+
+ *
  * @todo make iterable if possible
  * @todo make toString
  */
@@ -15,7 +29,8 @@ export default class LinkedList{
   }
 
   /**
-   * addFirst - adds element first in the list
+   * addFirst - adds element first in the list. This will push
+   * all elements one step to the right.
    *
    * @param  {Object} element The element to add.
    * @return {Number}         The new size of the list
@@ -78,7 +93,7 @@ export default class LinkedList{
 
   /**
    * peekFirst - Peeks at the first element in the list and returns it.
-   *  This does not alter the list in any way.
+   * This does not alter the list in any way.
    *
    * @return {Object}  The first element in the list.
    * @throws EmptyListError

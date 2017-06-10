@@ -1,20 +1,30 @@
 import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
 /**
- *   +----------------------------------------------------------+
- *   |   +-----+        +-----+        +-----+        +-----+   |
- *   +--->     +-------->     +-------->     +-------->     +---+
- *       |  A  |        |  B  |        |  C  |        |     |
- *   +---+     <--------+     <--------+     <--------+     <---+
- *   |   +-----+        +-----+        +-----+        +-----+   |
- *   +----------------------------------------------------------+
+ * Class representing a circular double linked list. Contains add last
  *
- * Class representing a circular double linked list.
+ * +----------------------------------------------------------+
+ * |   +-----+        +-----+        +-----+        +-----+   |
+ * +--->     +-------->     +-------->     +-------->     +---+
+ *     |  A  |        |  B  |        |  C  |        |  D  |
+ * +---+     <--------+     <--------+     <--------+     <---+
+ * |   +-----+        +-----+        +-----+        +-----+   |
+ * +------^--------------------------------------------^-------+
+ *        |                                            |
+ *     +--+--+                                      +--+--+
+ *     |First|                                      |Last |
+ *     |Ptr  |                                      |Ptr  |
+ *     +-----+                                      +-----+
  *
  * @todo make iterable if possible
  * @todo make toString
  */
 export default class LinkedList{
 
+  /**
+   * constructor - Initializes the structures, makes private
+   * variables.
+   *
+   */
   constructor(){
     this.first = null;
     this.last = null;
@@ -55,7 +65,6 @@ export default class LinkedList{
       //Set references of new element
       newNode.setNext(prevFirst);
       newNode.setPrev(this.last);
-
     }
 
     //Increment number of elements, and return the new size.
@@ -162,8 +171,9 @@ export default class LinkedList{
   }
 
   /**
-   * getAtPosition - Finds the element at given position, and returns it.
-   * The index values start at 0 and ends at size() - 1.
+   * getAtPosition - Finds the element at given index position, and returns it.
+   * The index values start at 0 and ends at size() - 1. It is ment to be
+   * used as a private method.
    *
    * Complexity:
    *  -Worstcase: O(n), where n is the index number
@@ -172,6 +182,7 @@ export default class LinkedList{
    *
    * @param  {Number} index The given index, must be within bounds.
    * @return {Object}       Element at given position.
+   * @throws {IndexOutOfBoundsError} if given index is < 0 or > size().
    */
   getAtPosition(index){
     if(!((0 <= index) && (index < this.size()))){
@@ -200,21 +211,10 @@ export default class LinkedList{
    *
    * @param  {Number} index The given index, must be within bounds.
    * @return {Object}       value at given position.
+   * @throws {IndexOutOfBoundsError} if given index is < 0 or > size().
    */
   getValAtPosition(index){
-    if(!((0 <= index) && (index < this.size()))){
-      var e = new Error();
-      e.name = "IndexOutOfBoundsError";
-      e.message = "Cannot get element in index "+ index +", current list size are " + this.size();
-      throw e;
-    }
-    var nextElement = this.first;
-    var i = 0;
-    while(i < index){
-      nextElement = nextElement.next;
-      i++;
-    }
-    return nextElement.getVal();
+    return this.getAtPosition(index).getVal();
   }
 
   /**
@@ -316,7 +316,7 @@ export default class LinkedList{
       throw e;
     }
 
-    //If removing the first position, just call add first
+    //If removing the first position, just call remove first
     if(index === 0){
       return this.removeFirst();
     }

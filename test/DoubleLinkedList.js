@@ -151,7 +151,7 @@ describe("DoubleLinkedList", function(){
     var removedVal = null;
     var randomVal = 0;
     var randomRange = 10000;
-    var numbersToAdd = 100;
+    var numbersToAdd = 10000;
     var addedNumbers = 0;
 
     //Adding 20 numbers
@@ -194,6 +194,7 @@ describe("DoubleLinkedList", function(){
     if(add && (randomIntegerInRange(1) === 0)){
       add = false;
       expect(list.removeAtPosition(indexToAlter)).to.equal(randomVal, "getValAtPosition and removeValAtPosition returns different values.");
+      addedNumbers--;
     }
 
     expect(list.size()).to.equal(addedNumbers, "Size() should increment when adding to list");
