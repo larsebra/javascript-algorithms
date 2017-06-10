@@ -7,14 +7,16 @@ import selectionSort from "../src/Sort Algorithms/SelectionSort";
 import bubbleSort from "../src/Sort Algorithms/BubbleSort";
 
 
-describe("Linear Sort Algorithms: Sorting 100000 random numbers", function () {
-
-  var randomArray = randomArrayGenerator(100000, 100000, -1, true);
+describe("Linear Sort Algorithms", function () {
+  var numbersToSort = 100000;
+  var rangeOfNumbers = 5000;
+  var allowForNegativeNum = true;
+  var randomArray = randomArrayGenerator(numbersToSort, rangeOfNumbers, -1, allowForNegativeNum);
   var asceArray = randomArray.slice(0);
   var descArray = randomArray.slice(0);
 
-  describe("Googles QuickSort. Used here to sort a copy of the random array so we can check the correctnes of the other algorithms", function () {
-    it("Googles quicksort should sort the array of 100000 random numbers in ascending order within reasonable time", function () {
+  describe("Googles QuickSort: Sorting " + numbersToSort + " random numbers. Used here to sort a copy of the random array so we can check the correctnes of the other algorithms", function () {
+    it("Googles quicksort should sort the array of random numbers in ascending order within reasonable time", function () {
       this.timeout(1000);
       asceArray.sort((a,b) => {
         if(a < b){
@@ -28,7 +30,7 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers", function () {
         }
       });
     });
-    it("Googles quicksort should sort the array of 100000 random numbers in descending within reasonable time", function () {
+    it("Googles quicksort should sort the array of random numbers in descending within reasonable time", function () {
       this.timeout(1000);
       descArray.sort((a,b) => {
         if(a < b){
@@ -44,7 +46,7 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers", function () {
     });
   });
 
-  describe('QuickSort', function () {
+  describe("QuickSort: Sorting " + numbersToSort + " random numbers", function () {
     it('Should sort the array elements in ascending order as googles quicksort does.', () => {
       this.timeout(1000);
       var array1 = randomArray.slice(0);
@@ -82,7 +84,7 @@ describe("Linear Sort Algorithms: Sorting 100000 random numbers", function () {
     });
   });
 
-  describe('MergeSort', function () {
+  describe("MergeSort: Sorting " + numbersToSort + " random numbers", function () {
     it('Should sort the elements correctly in incrementing order as the native environment sort algorithm does.', function() {
       this.timeout(1000);
       var array1 = randomArray.slice(0);

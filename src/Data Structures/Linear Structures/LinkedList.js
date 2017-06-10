@@ -25,7 +25,7 @@ export default class LinkedList{
     this.first = null;
     this.last = null;
     this.count = 0;
-    this.iterate = this.first;
+    this[Symbol.iterator] = this.next;
   }
 
   /**

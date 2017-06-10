@@ -181,6 +181,7 @@ describe("DoubleLinkedList", function(){
         randomVal = randomIntegerInRange(randomRange);
         add = true;
         expect(list.addInPosition(randomVal, indexToAlter)).to.equal(list.size(), "add and size() should return the same number, when adding.");
+        expect(list.getValAtPosition(indexToAlter)).to.equal(randomVal, "The right number should be at the right place after add in position.");
         addedNumbers++;
       }
       else{
@@ -188,16 +189,17 @@ describe("DoubleLinkedList", function(){
         expect(list.removeAtPosition(indexToAlter)).to.equal(removedVal, "getValAtPosition and removeValAtPosition returns different values.");
         addedNumbers--;
       }
-    }
 
-    //Check sometimes if the same number added gets removed correctly
-    if(add && (randomIntegerInRange(1) === 0)){
-      add = false;
-      expect(list.removeAtPosition(indexToAlter)).to.equal(randomVal, "getValAtPosition and removeValAtPosition returns different values.");
-      addedNumbers--;
-    }
+      //Check sometimes if the same number added gets removed correctly
+      if(add && (randomIntegerInRange(1) === 0)){
+        add = false;
+        removedVal = list.getValAtPosition(indexToAlter);
+        expect(list.removeAtPosition(indexToAlter)).to.equal(removedVal, "getValAtPosition and removeValAtPosition returns different values.");
+        addedNumbers--;
+      }
 
-    expect(list.size()).to.equal(addedNumbers, "Size() should increment when adding to list");
+      expect(list.size()).to.equal(addedNumbers, "Size() should increment when adding to list");
+    }
   });
 
 });

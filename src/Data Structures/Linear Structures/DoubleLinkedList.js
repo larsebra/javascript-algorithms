@@ -1,6 +1,7 @@
 import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
 /**
- * Class representing a circular double linked list. Contains add last
+ * Class representing a circular double linked list. List index starts at 0 and goes to
+ * size - 1.
  *
  * +----------------------------------------------------------+
  * |   +-----+        +-----+        +-----+        +-----+   |
@@ -8,7 +9,7 @@ import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
  *     |  A  |        |  B  |        |  C  |        |  D  |
  * +---+     <--------+     <--------+     <--------+     <---+
  * |   +-----+        +-----+        +-----+        +-----+   |
- * +------^--------------------------------------------^-------+
+ * +------^--------------------------------------------^------+
  *        |                                            |
  *     +--+--+                                      +--+--+
  *     |First|                                      |Last |
@@ -131,13 +132,20 @@ export default class LinkedList{
    * @param  {Number} index   The number
    * @return {Number}         The new size, if everything was ok.
    *
-   * @throws {IndexOutOfBoundsError}
+   * @throws {RangeError} if given index is out of range.
+   * @throws {EmptyListError} if list is empty
    */
   addInPosition(val, index){
-    if(!((0 <= index) && (index <= this.size()))){
+    if(this.isEmpty()){
       var e = new Error();
+      e.name = "EmptyListError";
+      e.message = "Cannot remove element, list is empty";
+      throw e;
+    }
+    if(!((0 <= index) && (index <= this.size()))){
+      var e = new RangeError();
       e.name = "IndexOutOfBoundsError";
-      e.message = "Cannot add element in index "+ index +", current list size are " + this.size();
+      e.message = "Cannot add element in index "+ index +", allowed range s 0 - " + this.size();
       throw e;
     }
 
@@ -182,11 +190,18 @@ export default class LinkedList{
    *
    * @param  {Number} index The given index, must be within bounds.
    * @return {Object}       Element at given position.
-   * @throws {IndexOutOfBoundsError} if given index is < 0 or > size().
+   * @throws {RangeError} if given index is < 0 or > size().
+   * @throws {EmptyListError} if list is empty.
    */
   getAtPosition(index){
-    if(!((0 <= index) && (index < this.size()))){
+    if(this.isEmpty()){
       var e = new Error();
+      e.name = "EmptyListError";
+      e.message = "Cannot remove element, list is empty";
+      throw e;
+    }
+    if(!((0 <= index) && (index < this.size()))){
+      var e = new RangeError();
       e.name = "IndexOutOfBoundsError";
       e.message = "Cannot get element in index "+ index +", current list size are " + this.size();
       throw e;
@@ -211,7 +226,7 @@ export default class LinkedList{
    *
    * @param  {Number} index The given index, must be within bounds.
    * @return {Object}       value at given position.
-   * @throws {IndexOutOfBoundsError} if given index is < 0 or > size().
+   * @throws {RangeError} if given index is < 0 or > size().
    */
   getValAtPosition(index){
     return this.getAtPosition(index).getVal();
@@ -275,21 +290,20 @@ export default class LinkedList{
       throw e;
     }
 
-    var prevLast = this.last;
-    var returnVal = prevLast.getVal();
-
     //If one element left, just return the value and reset pointers.
     if(this.size() === 1){
       return this.removeFirst();
     }
-    else{
-      //Set first to reference next element in line.
-      this.last = prevLast.getPrev();
 
-      //Change references of first and last element.
-      this.first.setPrev(this.last);
-      this.last.setNext(this.first);
-    }
+    var prevLast = this.last;
+    var returnVal = prevLast.getVal();
+
+    //Set first to reference next element in line.
+    this.last = prevLast.getPrev();
+
+    //Change references of first and last element.
+    this.first.setPrev(this.last);
+    this.last.setNext(this.first);
 
     //Remove references
     prevLast.setNext(null);
@@ -307,12 +321,20 @@ export default class LinkedList{
    *
    * @param  {Integer} index The index of the element to remove.
    * @return {Object}       The object to remove.
+   * @throws {RangeError} If the given index is not in range.
+   * @throws {EmptyListError} If list is empty
    */
   removeAtPosition(index){
-    if(!(0 <= index) && !(index < this.size())){
+    if(this.isEmpty()){
       var e = new Error();
+      e.name = "EmptyListError";
+      e.message = "Cannot remove element, list is empty";
+      throw e;
+    }
+    if(!((0 <= index) && (index < this.size()))){
+      var e = new RangeError();
       e.name = "IndexOutOfBoundsError";
-      e.message = "Cannot remove element at index "+ index +", must be within bounds";
+      e.message = "Cannot remove element at index "+ index +", must be within bounds. Current allowed range is: 0 - " + this.size();
       throw e;
     }
 
