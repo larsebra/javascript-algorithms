@@ -1,4 +1,4 @@
-import {Queue} from "../Data Structures/Linear Structures/Queues.js";
+import Queue from "../Data Structures/Linear Structures/Queue.js";
 
 /**
  * breadthFirstSearch - This is an implementation of BFS for path finding in a given graph. It works by always visiting nodes that is

@@ -1,6 +1,7 @@
 import {expect} from "chai";
 import {randomArrayGenerator} from "./test-tools/Arrays.js";
-import {Queue, QueueAsNativeArray} from "../src/Data Structures/Linear Structures/Queues.js";
+import Queue from "../src/Data Structures/Linear Structures/Queue";
+import QueueAsArray from "../src/Data Structures/Linear Structures/QueueAsArray";
 
 describe('Queues', function() {
 
@@ -90,7 +91,7 @@ describe('Queues', function() {
   });
 
   describe('QueueAsNativeArray: is tested with 10.000, this queue implementation is slow', function() {
-    var q = new QueueAsNativeArray();
+    var q = new QueueAsArray();
     var i;
     var numOfRan = 10000;
     var rangeOfNum = 10000;

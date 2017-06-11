@@ -4,7 +4,7 @@
   @class
   @todo make it iterable;
 */
-class StackAsArray{
+export default class StackAsArray{
   /**
    * constructor - Creates an array as the base structure for the stack
    */
@@ -83,5 +83,3 @@ class StackAsArray{
   }
 
 }
-
-export default StackAsArray;
