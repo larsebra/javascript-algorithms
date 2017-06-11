@@ -21,6 +21,27 @@ export default class Queue{
  }
 
  /**
+  * Set symbols on object, changes the default behaviour.
+  * /
+ /**
+  * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
+  *
+  * @return {Object}  The list object starting at beginning and ending and list size()
+  */
+ *[Symbol.iterator](){
+     if(this.isEmpty()){
+      return;
+     }
+     let iter_next = this.firstPtr;
+     do{
+       yield this.q[iter_next];
+       iter_next++;
+       iter_next = iter_next % this.q.length;
+     }
+     while(iter_next !== this.firstPtr)
+ }
+
+ /**
   * enqueue - Adds an element to the end of the queue
   *
   * @param  {Object} item to enqueue

@@ -5,7 +5,7 @@ import QueueAsArray from "../src/Data Structures/Linear Structures/QueueAsArray"
 
 describe('Queues', function() {
 
-  describe('Queue: this is tested with 100.000 random numbers, this queue implementation is the fastest in this lib', function() {
+  describe('Queue: this is tested with 100.000 random numbers', function() {
     var numOfEl = 100000;
     var rangeOfNum = 100000;
     var randomArray = randomArrayGenerator(rangeOfNum, numOfEl, 0, true);
@@ -15,6 +15,17 @@ describe('Queues', function() {
     it('Queue Should start of empty', function(){
       expect(q.isEmpty()).to.equal(true, "empty() should return true");
       expect(q.size()).to.equal(0, "size should return 0");
+    });
+
+    it('Queue Should iterate correctly', function(){
+      let qu = new Queue(3);
+      qu.enqueue(3);
+      qu.enqueue(2);
+      qu.enqueue(1);
+      let comArr = [3,2,1];
+      for(let el of qu){
+        expect(el).to.equal(comArr.shift(), "size should return 0");
+      }
     });
 
     it('Enqueue and Size should return correct amount of elements in q after adding', function(){
