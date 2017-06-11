@@ -29,17 +29,29 @@ export default class LinkedList{
   constructor(){
     this.first = null;
     this.last = null;
-    this.count = 0;
-    this.iterate = this.first;
+    this.length = 0;
   }
 
   /**
-   * addFirst - adds element first in the list
+   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
+   *
+   * @return {Object}  The list object starting at beginning and ending and list size()
+   */
+  *[Symbol.iterator](){
+      let iter_next = this.first;
+      while(iter_next !== null){
+        yield iter_next.getVal();
+        iter_next = iter_next.getNext();
+      }
+  }
+
+  /**
+   * unshift - adds element first in the list
    *
    * @param  {Object} element The element to add.
    * @return {Number}         The new size of the list
    */
-  addFirst(element){
+  unshift(element){
     var newNode = new DoubleLinkedListNode(element, null,null);
 
     if(this.size() === 0){
@@ -69,17 +81,36 @@ export default class LinkedList{
     }
 
     //Increment number of elements, and return the new size.
-    this.count++;
+    this.length++;
     return this.size();
   }
 
+
   /**
-   * addLast - Adds an element last in the list
+   * Set symbols on object, changes the default behaviour.
+   * /
+
+  /**
+   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
+   *
+   * @return {Object}  The list object starting at beginning and ending and list size()
+   */
+  *[Symbol.iterator](){
+      let iter_next = this.first;
+      do{
+        yield iter_next.getVal();
+        iter_next = iter_next.getNext();
+      }
+      while(iter_next !== this.first)
+  }
+
+  /**
+   * push - Adds an element last in the list
    *
    * @param  {Object} element The element to add.
    * @return {Number}         The new size of the list
    */
-  addLast(element){
+  push(element){
     var newNode = new DoubleLinkedListNode(element, null,null);
 
     if(this.size() === 0){
@@ -109,7 +140,7 @@ export default class LinkedList{
     }
 
     //Increment number of elements, and return the new size.
-    this.count++;
+    this.length++;
     return this.size();
   }
 
@@ -151,12 +182,12 @@ export default class LinkedList{
 
     //If adding in the first position, just call add first
     if(index === 0){
-      return this.addFirst(val);
+      return this.unshift(val);
     }
 
     //If adding in after last position, just call add last
     if(index === this.size()){
-      return this.addLast(val);
+      return this.push(val);
     }
 
     //Get element at index.
@@ -174,7 +205,7 @@ export default class LinkedList{
     oldElementAtPos.setPrev(newElement);
 
     //Increment number of elements, and return the new size.
-    this.count++;
+    this.length++;
     return this.size();
   }
 
@@ -233,14 +264,14 @@ export default class LinkedList{
   }
 
   /**
-   * removeFirst - removes the first element from the list, and returns it.
+   * shift - removes the first element from the list, and returns it.
    * The next element in line becomes the first element in the list, if there
    * are any elements left.
    *
    * @return {Object}  The first object in the list.
    * @throws {EmptyListError}
    */
-  removeFirst(){
+  shift(){
     if(this.isEmpty()){
       var e = new Error();
       e.name = "EmptyListError";
@@ -270,19 +301,19 @@ export default class LinkedList{
     prevFirst.setPrev(null);
 
     //Decrement size and return value.
-    this.count--;
+    this.length--;
     return returnVal;
   }
 
   /**
-   * removeLast - removes the last element from the list, and returns it.
+   * pop - removes the last element from the list, and returns it.
    * The previous element of last element becomes the new last element in
    * the list, if there are any elements left.
    *
    * @return {Object}  The last object in the list.
    * @throws {EmptyListError}
    */
-  removeLast(){
+  pop(){
     if(this.isEmpty()){
       var e = new Error();
       e.name = "EmptyListError";
@@ -292,7 +323,7 @@ export default class LinkedList{
 
     //If one element left, just return the value and reset pointers.
     if(this.size() === 1){
-      return this.removeFirst();
+      return this.shift();
     }
 
     var prevLast = this.last;
@@ -310,12 +341,12 @@ export default class LinkedList{
     prevLast.setPrev(null);
 
     //Decrement size and return value.
-    this.count--;
+    this.length--;
     return returnVal;
   }
 
   /**
-   * removeAtPosition - Removes and returns the element at the given index.
+   * splice - Removes and returns the element at the given index.
    * The given index must be in the bounds of the size() of the list; 0 <= index
    * < size().
    *
@@ -324,7 +355,7 @@ export default class LinkedList{
    * @throws {RangeError} If the given index is not in range.
    * @throws {EmptyListError} If list is empty
    */
-  removeAtPosition(index){
+  splice(index){
     if(this.isEmpty()){
       var e = new Error();
       e.name = "EmptyListError";
@@ -340,12 +371,12 @@ export default class LinkedList{
 
     //If removing the first position, just call remove first
     if(index === 0){
-      return this.removeFirst();
+      return this.shift();
     }
 
     //If removing the last position, just call remove first
     if(index === (this.size() - 1)){
-      return this.removeLast();
+      return this.pop();
     }
 
     //Get element at index.
@@ -361,7 +392,7 @@ export default class LinkedList{
     oldElementAtPos.setNext(null);
 
     //Decrement number of elements, and return the value of the old element.
-    this.count--;
+    this.length--;
     return returnVal;
   }
 
@@ -405,7 +436,7 @@ export default class LinkedList{
    * @return {Boolean}  true if empty, else false.
    */
   isEmpty(){
-    return (this.count === 0) ? true: false;
+    return (this.length === 0) ? true: false;
   }
 
   /**
@@ -414,10 +445,6 @@ export default class LinkedList{
    * @return {Number}  number of elements in the list
    */
   size(){
-    return this.count;
-  }
-
-  toString(){
-
+    return this.length;
   }
 }

@@ -24,18 +24,30 @@ export default class LinkedList{
   constructor(){
     this.first = null;
     this.last = null;
-    this.count = 0;
-    this[Symbol.iterator] = this.next;
+    this.length = 0;
   }
 
   /**
-   * addFirst - adds element first in the list. This will push
+   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
+   *
+   * @return {Object}  The list object starting at beginning and ending and list size()
+   */
+  *[Symbol.iterator](){
+      let iter_next = this.first;
+      while(iter_next !== null){
+        yield iter_next.getVal();
+        iter_next = iter_next.getNext();
+      }
+  }
+
+  /**
+   * unshift - adds element first in the list. This will push
    * all elements one step to the right.
    *
    * @param  {Object} element The element to add.
    * @return {Number}         The new size of the list
    */
-  addFirst(element){
+  unshift(element){
     if(this.size() === 0){
       this.first = new ListNode(element, null);
       this.last = this.first;
@@ -44,17 +56,17 @@ export default class LinkedList{
       var prevFirst = this.first;
       this.first = new ListNode(element, prevFirst);
     }
-    this.count++;
+    this.length++;
     return this.size();
   }
 
   /**
-   * addLast - Adds an element last in the list
+   * push - Adds an element last in the list
    *
    * @param  {Object} element The element to add.
    * @return {Number}         The new size of the list
    */
-  addLast(element){
+  push(element){
     if(this.size() === 0){
       this.first = new ListNode(element, null);
       this.last = this.first;
@@ -64,18 +76,18 @@ export default class LinkedList{
       this.last = new ListNode(element, null);
       prevLast.setNext(this.last);
     }
-    this.count++;
+    this.length++;
     return this.size();
   }
 
   /**
-   * removeFirst - removes the first element from the list, and returns it.
+   * shift - removes the first element from the list, and returns it.
    *  The next element in line becomes the first element in the list.
    *
    * @return {Object}  The first object in the list.
    * @throws EmptyListError
    */
-  removeFirst(){
+  shift(){
     if(this.isEmpty()){
       var e = new Error();
       e.name = "EmptyListError";
@@ -87,7 +99,7 @@ export default class LinkedList{
     prevFirst.setNext(null);//remove references.
     var returnVal = prevFirst.getVal();
     prevFirst.setVal(null); //remove references.
-    this.count--;
+    this.length--;
     return returnVal;
   }
 
@@ -131,7 +143,7 @@ export default class LinkedList{
    * @return {Boolean}  true if empty, else false.
    */
   isEmpty(){
-    return (this.count === 0) ? true: false;
+    return (this.length === 0) ? true: false;
   }
 
   /**
@@ -140,10 +152,7 @@ export default class LinkedList{
    * @return {Number}  number of elements in the list
    */
   size(){
-    return this.count;
+    return this.length;
   }
 
-  toString(){
-
-  }
 }
