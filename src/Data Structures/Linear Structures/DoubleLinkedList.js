@@ -33,16 +33,21 @@ export default class LinkedList{
   }
 
   /**
+   * Set symbols on object, changes the default behaviour.
+   * /
+
+  /**
    * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
    *
    * @return {Object}  The list object starting at beginning and ending and list size()
    */
   *[Symbol.iterator](){
       let iter_next = this.first;
-      while(iter_next !== null){
+      do{
         yield iter_next.getVal();
         iter_next = iter_next.getNext();
       }
+      while(iter_next !== this.first)
   }
 
   /**
@@ -83,25 +88,6 @@ export default class LinkedList{
     //Increment number of elements, and return the new size.
     this.length++;
     return this.size();
-  }
-
-
-  /**
-   * Set symbols on object, changes the default behaviour.
-   * /
-
-  /**
-   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
-   *
-   * @return {Object}  The list object starting at beginning and ending and list size()
-   */
-  *[Symbol.iterator](){
-      let iter_next = this.first;
-      do{
-        yield iter_next.getVal();
-        iter_next = iter_next.getNext();
-      }
-      while(iter_next !== this.first)
   }
 
   /**
