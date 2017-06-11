@@ -82,7 +82,8 @@ export default class LinkedList{
 
   /**
    * shift - removes the first element from the list, and returns it.
-   *  The next element in line becomes the first element in the list.
+   * The next element in line becomes the first element in the list.
+   * Pushes the list one step to the "right".
    *
    * @return {Object}  The first object in the list.
    * @throws EmptyListError

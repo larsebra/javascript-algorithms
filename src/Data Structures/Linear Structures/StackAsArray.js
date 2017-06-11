@@ -1,17 +1,15 @@
-import LinkedList from "./LinkedList"
 /*
-  Class representing a stack structure. The stack is using a single linked list as base structure.
-  This stack is the library default stack.
+  Class representing a stack structure. The stack is using js array as base structure, and it
+  also uses Arrays push and pop.
   @class
   @todo make it iterable;
 */
-class Stack{
+class StackAsArray{
   /**
    * constructor - Creates an array as the base structure for the stack
    */
   constructor(){
-    this.stack = new LinkedList();
-    this[Symbol.iterator] = this.stack[Symbol.iterator].bind(this.stack);
+    this.stack = [];
   }
 
   /**
@@ -27,7 +25,7 @@ class Stack{
         e.message = "Cannot pop empty stack";
         throw e;
     }
-    return this.stack.shift();
+    return this.stack.pop();
   }
 
   /**
@@ -37,7 +35,7 @@ class Stack{
    * @return {number} returns the new number of elements in the stack
    */
   push(item){
-    return this.stack.unshift(item);
+    return this.stack.push(item);
   }
 
   /**
@@ -46,7 +44,7 @@ class Stack{
    * @return {Number} returns the index of the top element
    */
   top(){
-    return this.stack.size() - 1;
+    return this.stack.length - 1;
   }
 
   /**
@@ -55,7 +53,7 @@ class Stack{
    * @return {Boolean} The index of the top element
    */
   isEmpty(){
-    return this.stack.isEmpty();
+    return (this.size() === 0) ? true : false;
   }
 
   /**
@@ -64,7 +62,7 @@ class Stack{
    * @return {Number} The size of the stack
    */
   size(){
-    return this.stack.size();
+    return this.stack.length;
   }
 
   /**
@@ -80,9 +78,10 @@ class Stack{
       e.message = "Cannot peek, stack is empty";
       throw e;
     }
-    return this.stack.peekFirst();
+    var top = this.top();
+    return this.stack[top];
   }
 
 }
 
-export default Stack;
+export default StackAsArray;
