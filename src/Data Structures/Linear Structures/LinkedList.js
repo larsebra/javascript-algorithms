@@ -16,7 +16,6 @@ import ListNode from "./ListNode.js"
  * |Ptr  |                                      |Ptr  |
  * +-----+                                      +-----+
  *
- * @todo make iterable if possible
  * @todo make toString
  */
 export default class LinkedList{
@@ -28,7 +27,7 @@ export default class LinkedList{
   }
 
   /**
-   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
+   * Symbol.iterator - Make iterable. This is a generator used in for of loop to iterate over the collection
    *
    * @return {Object}  The list object starting at beginning and ending and list size()
    */
@@ -53,9 +52,10 @@ export default class LinkedList{
       this.last = this.first;
     }
     else{
-      var prevFirst = this.first;
-      this.first = new ListNode(element, prevFirst);
+      var newFirst = new ListNode(element, this.first);
+      this.first = newFirst;
     }
+
     this.length++;
     return this.size();
   }
@@ -68,14 +68,14 @@ export default class LinkedList{
    */
   push(element){
     if(this.size() === 0){
-      this.first = new ListNode(element, null);
-      this.last = this.first;
+      //Just call unshift.
+      return this.unshift(element);
     }
-    else{
-      var prevLast = this.last;
-      this.last = new ListNode(element, null);
-      prevLast.setNext(this.last);
-    }
+
+    var newLast = new ListNode(element, null);
+    this.last.setNext(newLast);
+    this.last = newLast;
+
     this.length++;
     return this.size();
   }
@@ -144,7 +144,7 @@ export default class LinkedList{
    * @return {Boolean}  true if empty, else false.
    */
   isEmpty(){
-    return (this.length === 0) ? true: false;
+    return (this.size() === 0) ? true: false;
   }
 
   /**

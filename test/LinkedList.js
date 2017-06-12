@@ -8,6 +8,19 @@ describe("LinkedList", function(){
     expect(list.size()).to.equal(0,"size should be 0 when list is empty");
   });
 
+  it("Checking iterator", function(){
+    let l = new LinkedList();
+    l.push(1);
+    l.push(2);
+    l.push(3);
+    l.push(4);
+    l.push(5);
+    let compArray = [1,2,3,4,5];
+    for(let el of l){
+        expect(el).to.equal(compArray.shift(), "Should iterate correctly");
+    }
+  });
+
   it("should add correctly", function(){
     list.unshift(1);
     expect(list.size()).to.equal(1, "Size() should increment when adding to list");
@@ -28,6 +41,11 @@ describe("LinkedList", function(){
       expect(list.peekFirst()).to.equal(list.shift(), "removes wrong value");
       expect(list.size()).to.equal(--s, "size should decrement when removing");
     }
+  });
+
+  it("should be empty after removing all elements", function(){
+    expect(list.isEmpty()).to.be.true;
+    expect(list.size()).to.equal(0,"size should be 0 when list is empty");
   });
 
   it("Checking iterator", function(){

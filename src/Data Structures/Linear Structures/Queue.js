@@ -102,7 +102,7 @@ export default class Queue{
   * @return {Object}  returns the first element in line.
   * @throws {EmptyQueueError} throws this if queue is empty
   */
- peek(){
+ peekFirst(){
    if(this.isEmpty()){
      var e = new Error();
      e.name = "EmptyQueueError";

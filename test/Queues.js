@@ -2,6 +2,7 @@ import {expect} from "chai";
 import {randomArrayGenerator} from "./test-tools/Arrays.js";
 import Queue from "../src/Data Structures/Linear Structures/Queue";
 import QueueAsArray from "../src/Data Structures/Linear Structures/QueueAsArray";
+import QueueAsList from "../src/Data Structures/Linear Structures/QueueAsList";
 
 describe('Queues', function() {
 
@@ -40,9 +41,9 @@ describe('Queues', function() {
       expect(q.size()).to.equal(numOfEl, "size should return full full size");
     });
 
-    /*it('Queue should throw FullQueueError when trying to add to full queue', function(){
-      expect(q.enqueue(randomArray[0])).to.throw(/FullQueueError/);
-    });*/
+    it('Queue should throw FullQueueError when trying to add to full queue', function(){
+      expect(()=>{q.enqueue(randomArray[0])}).to.throw;
+    });
 
     it('Dequeue should return the right elements, dequeue all elements.', function(){
       for(i = 0; i < numOfEl; i++){
@@ -50,9 +51,9 @@ describe('Queues', function() {
       }
     });
 
-    /*it('Queue should throw EmptyQueueError when trying to add to full queue', function(){
-      expect(q.enqueue(randomArray[0])).to.throw(/FullQueueError/);
-    });*/
+    it('Queue should throw EmptyQueueError when trying to add to full queue', function(){
+      expect(()=>{q.enqueue(randomArray[0])}).to.throw;
+    });
 
     it('Queue should be empty after dequeueing all elements', function(){
       expect(q.isEmpty()).to.equal(true, "empty() should return true");
@@ -92,10 +93,90 @@ describe('Queues', function() {
     it('Peek should always point at the first element in line', function(){
       for(i = 0; i < randomArray.length; i++){
         q.enqueue(randomArray[i]);
-        expect(q.peek()).to.equal(randomArray[0]);
+        expect(q.peekFirst()).to.equal(randomArray[0]);
       }
       for(; i > 0; i--){
-        var peek = q.peek()
+        var peek = q.peekFirst()
+        expect(q.dequeue()).to.equal(peek, "Deque should return the same as peek points to");
+      }
+    });
+  });
+
+  describe('QueueAsList: this is tested with 100.000 random numbers', function() {
+    var numOfEl = 100000;
+    var rangeOfNum = 100000;
+    var randomArray = randomArrayGenerator(rangeOfNum, numOfEl, 0, true);
+    var q = new QueueAsList(numOfEl);
+    var i;
+
+    it('Queue Should start of empty', function(){
+      expect(q.isEmpty()).to.equal(true, "empty() should return true");
+      expect(q.size()).to.equal(0, "size should return 0");
+    });
+
+    it('Queue Should iterate correctly', function(){
+      let qu = new Queue(3);
+      qu.enqueue(3);
+      qu.enqueue(2);
+      qu.enqueue(1);
+      let comArr = [3,2,1];
+      for(let el of qu){
+        expect(el).to.equal(comArr.shift());
+      }
+    });
+
+    it('Enqueue and Size should return correct amount of elements in q after adding', function(){
+      for(var i = 0; i < numOfEl; i++){
+        expect(q.enqueue(randomArray[i])).to.equal((i+1), "enqueue should return the right amount of elements after adding");
+        expect(q.size()).to.equal((i+1), "Size Should return the correct amount of elements after adding");
+      }
+    });
+
+    it('Dequeue should return the right elements, dequeue all elements.', function(){
+      for(i = 0; i < numOfEl; i++){
+        expect(q.dequeue()).to.equal(randomArray[i], "Dequeing returns the wrong elements");
+      }
+    });
+
+    it('Queue should be empty after dequeueing all elements', function(){
+      expect(q.isEmpty()).to.equal(true, "empty() should return true");
+      expect(q.size()).to.equal(0, "size should return 0");
+    });
+
+    it('Should enque and dequeue correctly', function(){
+      var to = numOfEl/2;
+      for(i = 0; i < to; i++){
+        expect(q.enqueue(randomArray[i])).to.equal(i + 1, "Que contains the wrong amount of elements");
+      }
+
+      expect(q.size()).to.equal(numOfEl/2, "size should return the half size when filling the q up 50%");
+
+      for(i = 0; i < to; i++){
+        expect(q.dequeue()).to.equal(randomArray[i], "Dequeing returns the wrong elements");
+      }
+
+      expect(q.isEmpty()).to.equal(true, "empty() should return true");
+      expect(q.size()).to.equal(0, "size should return 0");
+
+      for(i = 0; i < numOfEl; i++){
+        expect(q.enqueue(randomArray[i])).to.equal(i + 1, "Que contains the wrong amount of elements");
+      }
+
+      for(i = 0; i < numOfEl; i++){
+        expect(q.dequeue()).to.equal(randomArray[i], "Dequeing returns the wrong elements");
+      }
+
+      expect(q.isEmpty()).to.equal(true, "empty() should return true");
+      expect(q.size()).to.equal(0, "size should return 0");
+    });
+
+    it('Peek should always point at the first element in line', function(){
+      for(i = 0; i < randomArray.length; i++){
+        q.enqueue(randomArray[i]);
+        expect(q.peekFirst()).to.equal(randomArray[0]);
+      }
+      for(; i > 0; i--){
+        var peek = q.peekFirst()
         expect(q.dequeue()).to.equal(peek, "Deque should return the same as peek points to");
       }
     });
@@ -118,7 +199,7 @@ describe('Queues', function() {
     it('Peek should always point at the first element in line', function(){
       for(i = 5000; i < randomArray.length; i++){
         q.enqueue(randomArray[i]);
-        expect(q.peek()).to.equal(randomArray[0]);
+        expect(q.peekFirst()).to.equal(randomArray[0]);
       }
     });
 

@@ -46,7 +46,7 @@ export default class QueueAsArray{
    *
    * @return {Object}  returns the first element in line.
    */
-  peek(){
+  peekFirst(){
     if(this.isEmpty()){
       var e = new Error();
       e.name = "EmptyQueueError";

@@ -29,7 +29,7 @@ export default class LinkedList{
   constructor(){
     this.first = null;
     this.last = null;
-    this.length = 0;
+    this.length = -1;
   }
 
   /**
@@ -422,7 +422,7 @@ export default class LinkedList{
    * @return {Boolean}  true if empty, else false.
    */
   isEmpty(){
-    return (this.length === 0) ? true: false;
+    return (this.size() === 0) ? true: false;
   }
 
   /**
@@ -431,6 +431,6 @@ export default class LinkedList{
    * @return {Number}  number of elements in the list
    */
   size(){
-    return this.length;
+    return this.length + 1;
   }
 }
