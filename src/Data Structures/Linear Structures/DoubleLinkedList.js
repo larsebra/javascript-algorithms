@@ -16,10 +16,9 @@ import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
  *     |Ptr  |                                      |Ptr  |
  *     +-----+                                      +-----+
  *
- * @todo make iterable if possible
  * @todo make toString
  */
-export default class LinkedList{
+export default class DoubleLinkedList{
 
   /**
    * constructor - Initializes the structures, makes private
@@ -29,7 +28,7 @@ export default class LinkedList{
   constructor(){
     this.first = null;
     this.last = null;
-    this.length = -1;
+    this.length = 0;
   }
 
   /**
@@ -431,6 +430,6 @@ export default class LinkedList{
    * @return {Number}  number of elements in the list
    */
   size(){
-    return this.length + 1;
+    return this.length;
   }
 }

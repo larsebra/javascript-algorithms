@@ -3,7 +3,7 @@
  * enqueueing and dequeueing. This implementation is very slow, due to use of unshift and pop, particularly the unshift method.
  * Should not be used when performance is important, use Queue, a circular buffer queue instead. However this class does not have
  * any limitiations on how many elements there can be in the list, other than the limitations on the native Array object itself.
- * It is not a plan to maintain this structure.
+ * It is not a plan to maintain this structure in the future, but as it is now it works fine.
  * @class
  */
 export default class QueueAsArray{
