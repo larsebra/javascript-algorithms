@@ -1,10 +1,13 @@
+import RingBuffer from "./RingBuffer"
 /**
  * Class representing a queue. It uses an array of given size as base structure.
- * This queues is implemented as a circular array or ring buffer using modulus arithmetic.
+ * This queues is implemented as using the RingBuffer class.
  * It is faster than using Array class native methods(Push and shift) for queueing an enqueueing.
- * There is one limitiation however, the queues size is finite, it has the size of the given value,
+ * There is one limitiation however, the queues size is finite, it has the size of the given input size at initialization,
  * this size is given to the constructor. It is called queue because this is, as for now, the standard
  * linear queue of the lib.
+ *
+ * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
 export default class Queue{
  /**
@@ -13,32 +16,8 @@ export default class Queue{
   * @param  {Number} number The size of the queue
   */
  constructor(size){
-   this.q = new Array(size);
-   this.firstPtr = 0;
-   this.lastPtr = 0;
-   this.lPtrOverlap = false;
-   this.fPtrOverlap = true;
- }
-
- /**
-  * Set symbols on object, changes the default behaviour.
-  * /
- /**
-  * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
-  *
-  * @return {Object}  The list object starting at beginning and ending and list size()
-  */
- *[Symbol.iterator](){
-     if(this.isEmpty()){
-      return;
-     }
-     let iter_next = this.firstPtr;
-     do{
-       yield this.q[iter_next];
-       iter_next++;
-       iter_next = iter_next % this.q.length;
-     }
-     while(iter_next !== this.firstPtr)
+   this.q = new RingBuffer(size,false);
+   this[Symbol.iterator] = this.q[Symbol.iterator].bind(this.q);
  }
 
  /**
@@ -55,18 +34,7 @@ export default class Queue{
      e.message = "Cannot enqueue, queue is full";
      throw e;
    }
-   else{
-     this.q[this.lastPtr] = item;
-     this.lastPtr++;
-     this.lastPtr = (this.lastPtr % this.q.length);
-     if(this.isEmpty()){//If it is empty one more element has been added mark as not empty
-       this.fPtrOverlap = false;
-     }
-     else if(this.lastPtr === this.firstPtr){
-       this.lPtrOverlap = true;
-     }
-     return this.size();
-   }
+   return this.q.write(item)
  }
 
  /**
@@ -82,22 +50,11 @@ export default class Queue{
      e.message = "Cannot dequeue, queue is empty";
      throw e;
    }
-   else{
-     var temp = this.q[this.firstPtr];
-     this.firstPtr++;
-     this.firstPtr = (this.firstPtr % this.q.length);
-     if(this.isFull()){//If it is full dequeue has made room for one more element; Mark not full
-       this.lPtrOverlap = false;
-     }
-     else if(this.firstPtr === this.lastPtr){
-       this.fPtrOverlap = true;
-     }
-     return temp;
-   }
+   return this.q.read();
  }
 
  /**
-  * peek - peeks at the first element in line
+  * peekFirst - peeks at the first element in line
   *
   * @return {Object}  returns the first element in line.
   * @throws {EmptyQueueError} throws this if queue is empty
@@ -109,44 +66,50 @@ export default class Queue{
      e.message = "Cannot peek, queue is empty";
      throw e;
    }
-   return this.q[this.firstPtr];
+   return this.q.peekAtRHdr();
  }
 
  /**
-  * size - gets the size of the queue.
+  * peekLast - peeks at the last element in line
   *
-  * @return {Number}  size of the queue.
+  * @return {Object}  returns the last element in line.
+  * @throws {EmptyQueueError} throws this if queue is empty
   */
- size(){
-   if(this.lastPtr < this.firstPtr){
-     var s1 = this.q.length - this.firstPtr;
-     var s2 = this.lastPtr;
-     return (s1 + s2);
+ peekLast(){
+   if(this.isEmpty()){
+     var e = new Error();
+     e.name = "EmptyQueueError";
+     e.message = "Cannot peek, queue is empty";
+     throw e;
    }
-   else if(this.isFull()){
-     return this.q.length;
-   }
-   else{
-     return (this.lastPtr - this.firstPtr);
-   }
-
+   return this.q.peekAtWHdr();
  }
 
  /**
-  * isEmpty - Checks if q is empty
+  * isEmpty - checks if q is empty
   *
-  * @return {Boolean} The index of the top element
+  * @return {Boolean}  returns true if it is empty, else false.
   */
  isEmpty(){
-   return this.fPtrOverlap;
+   return this.q.isEmpty();
  }
 
  /**
-  * isFull - Checks if q is full.
+  * isFull - checks if q is full
   *
-  * @return {Boolean}  true if q is full, else false;
+  * @return {Boolean}  returns true if it is full, false else
   */
  isFull(){
-   return this.lPtrOverlap;
+   return this.q.isFull();
  }
+
+ /**
+  * size - size of the queue.
+  *
+  * @return {Number}  Number of elements currently in the queue
+  */
+ size(){
+   return this.q.size();
+ }
+
 }

@@ -18,7 +18,6 @@ class BinHeap{
    *
    * @param  {Func} comparator function used to compare
    * @return {type}            description
-   * @todo Throw something usefull
    */
   constructor(comparator){
     this.heap = [];
