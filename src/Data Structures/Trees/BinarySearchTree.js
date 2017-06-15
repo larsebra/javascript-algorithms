@@ -6,16 +6,23 @@ import BinaryTreeNode from "./BinarySearchTree.js";
 export default class BinarySearchTree {
   constructor(compareFunction){
     this.root = null;
-    this.size = 0;
+    this.length = 0;
     this.comparator = compareFunction;
   }
 
   add(val){
-
+    if(this.isEmpty()){
+      this.root = new BinaryTreeNode();
+    }
   }
 
   remove(val){
-
+    if(this.isEmpty()){
+      let e = new Error();
+      e.name = "EmptyTreeError";
+      e.message ="Tree is empty";
+      throw e;
+    }
   }
 
   find(val){
@@ -29,4 +36,9 @@ export default class BinarySearchTree {
   getHeight(){
 
   }
+
+  isEmpty(){
+    return (this.length === 0)?true:false;
+  }
+
 }

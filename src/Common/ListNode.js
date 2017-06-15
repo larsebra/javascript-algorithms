@@ -1,4 +1,4 @@
-import Node from "../../Common/Node.js"
+import Node from "./Node.js"
 
 class ListNode extends Node {
 

@@ -8,6 +8,7 @@ import BinHeap from "../Trees/BinHeap";
  * @todo finish class. Not finished.
  */
 class ArrayGraph{
+  
   constructor(numberOfNodes, cost){
     this.graph = new Array(numberOfNodes);
     for(var it = 0; it < this.graph.length; it++){
@@ -45,31 +46,7 @@ class ArrayGraph{
    * @return {Object}              Return an object of the form: {found: Boolean, node: Node, nodeNumber: Number }
    */
   breadthFirstSearch(fromNode, searchForVal){
-    if(!(0 < fromNode && fromNode < this.graph.length)){
-      //Throw something
-    }
-    var queue = new Queue();
-    var visitedNodes = new Array(this.graph.length).fill(false);
-    var currentNode = fromNode;
-    while(true){
-      if(this.nodes[currentNode].getVal() === searchForVal){
-        return {found: true, node: this.nodes[currentNode], nodeNumber: currentNode }
-      }
 
-      for(var j = 0; j < this.graph.length; j++){
-        if(this.graph[currentNode][j] === -1){
-            continue;
-        }
-        queue.enqueue(j);
-      }
-
-      try{
-          currentNode = queue.dequeue();
-      }
-      finally{
-          return {found: false, node: undefined, nodeNumber: undefined }
-      }
-    }
   }
 
   depthFirstSearch(){

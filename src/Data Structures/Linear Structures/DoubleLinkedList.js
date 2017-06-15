@@ -1,4 +1,4 @@
-import DoubleLinkedListNode from "./DoubleLinkedListNode.js";
+import DoubleLinkedListNode from "../../Common/DoubleLinkedListNode.js";
 /**
  * Class representing a circular double linked list. List index starts at 0 and goes to
  * length - 1.

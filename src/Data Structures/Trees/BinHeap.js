@@ -6,7 +6,7 @@ import swap from "../../Common/Swap.js";
  * If min heap is wanted write a comparator function that returns true if a < b, false otherwise.
  * @class
  * @todo test class and all methods, make exceptions where it is needed
- * @todo add support for comparator function
+ * @todo balance the tree when adding
  */
 class BinHeap{
   /**

@@ -1,4 +1,4 @@
-import ListNode from "./ListNode.js"
+import ListNode from "../../Common/ListNode.js"
 
 /**
  * Class representing a single linked list. It is possible to add last, add first  and remove first.
