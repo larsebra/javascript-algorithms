@@ -1,4 +1,4 @@
-import BinHeap from "../Data Structures/Trees/BinHeap.js"
+import BinaryHeap from "../Data Structures/Trees/BinaryHeap.js"
 /**
  *
  *                AAA
@@ -93,9 +93,9 @@ export function AStar(fromNode, toNode, graph, heuristic){
   }
 
   var shortestPath = [];
-  var priQueue = new BinHeap((a,b)=>{
+  var priQueue = new BinaryHeap(graph.length, (a,b)=>{
     //The less than operator here will cause equal priority nodes to be visited in a fifo manner.
-    return (a.priority < b.priority) ? true: false;
+    return (a.priority < b.priority) ? -1: 1;
   });
   var currentNode = null;
   var visited = new Array(graph.length).fill(null);  //A boolean array used to mark visited node, filled with null references

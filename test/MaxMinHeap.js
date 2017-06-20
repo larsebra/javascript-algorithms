@@ -1,12 +1,13 @@
 import {expect} from "chai";
 import {randomArrayGenerator } from "./test-tools/Arrays.js";
-
-import BinHeap from "../src/Data Structures/Trees/BinHeap.js";
-import Node from "../src/Common/Node.js";
+import BinaryHeap from "../src/Data Structures/Trees/BinaryHeap";
 
 describe("Binary Heap", () => {
   //Make an array that is going to be added to the heap. This array is not changed belowed.
-  var randomArray = randomArrayGenerator(10000, 1000000, 0, true);
+  var numberOfElements = 1000000;
+  var rangeOfElement = 10000;
+  var allowNegativeNumbers = true;
+  var randomArray = randomArrayGenerator(rangeOfElement, numberOfElements, 0, allowNegativeNumbers);
 
   describe('MinBinHeap', function() {
     this.timeout(5000)
@@ -25,8 +26,16 @@ describe("Binary Heap", () => {
       }
     });
 
-    var mh = new BinHeap((a,b) => {
-      return (a < b) ? true: false;
+    var mh = new BinaryHeap(numberOfElements, (a,b) => {
+      if(a < b){
+        return -1;
+      }
+      else if(a > b){
+        return 1;
+      }
+      else{
+        return 0;
+      }
     });
 
     it("Should start empty", ()=>{
@@ -122,8 +131,16 @@ describe("Binary Heap", () => {
       }
     });
 
-    var mh = new BinHeap((a,b) => {
-      return (a > b) ? true: false;
+    var mh = new BinaryHeap(numberOfElements,(a,b) => {
+      if(a > b){
+        return -1;
+      }
+      else if(a < b){
+        return 1;
+      }
+      else{
+        return 0;
+      }
     });
 
     it("Should start empty", ()=>{

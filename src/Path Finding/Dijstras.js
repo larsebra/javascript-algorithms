@@ -1,4 +1,4 @@
-import BinHeap from "../Data Structures/Trees/BinHeap.js"
+import BinaryHeap from "../Data Structures/Trees/BinaryHeap.js"
 
 /**
  * ,---,                             ,-.             ___
@@ -68,9 +68,9 @@ export function dijkstras(fromNode, toNode, graph){
   //Return array containing numbers indicating the shortest path.
   var shortestPath = [];
   //Creating a binary heap as the priority queue.
-  var priQueue = new BinHeap((a,b)=>{
+  var priQueue = new BinaryHeap(graph.length,(a,b)=>{
     //The less than operator here will cause equal cost nodes to be visited in a fifo manner.
-    return (a.cost < b.cost) ? true: false;
+    return (a.cost < b.cost) ? -1: 1;
   });
   //The node currently visited.
   var currentNode = null;

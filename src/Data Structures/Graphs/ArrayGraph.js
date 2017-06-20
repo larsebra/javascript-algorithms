@@ -1,5 +1,4 @@
 import Node from "../../Common/Node.js"
-import BinHeap from "../Trees/BinHeap";
 /**
  * Class representing a undirected Graph.
  * Primitive datatypes used for construction: Array.
@@ -8,7 +7,7 @@ import BinHeap from "../Trees/BinHeap";
  * @todo finish class. Not finished.
  */
 class ArrayGraph{
-  
+
   constructor(numberOfNodes, cost){
     this.graph = new Array(numberOfNodes);
     for(var it = 0; it < this.graph.length; it++){
