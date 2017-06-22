@@ -7,7 +7,7 @@ import swap from "../Common/Swap.js";
  *     888    888  888   888   888    888 888    888 888 888                 888 888     888 888        888
  *    o888ooo888    888o88 8o o888ooo88  o888ooo88  o888o  88oooo888 88oooooo88    88ooo88  o888o        888o
  *
- * bubbleSort - Bubblesort implemented as a pure JavaScript function. The bubblesort should not be used on large collection
+ * Bubblesort - Bubblesort implemented as a pure JavaScript function. The Bubblesort should not be used on large collection
  * due to its worst case performance. It uses the given comparator function to order the elements, see below for more information
  * on the comparator function.
  *
@@ -27,7 +27,7 @@ import swap from "../Common/Swap.js";
  *
  * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
-function bubbleSort(array, comparator){
+function Bubblesort(array, comparator){
   var sortedArray = array.slice(0);
   for(var x = sortedArray.length - 1; x > 0; x--){
     for(var y = 0; y < x; y++){
@@ -40,4 +40,4 @@ function bubbleSort(array, comparator){
   }
   return sortedArray;
 }
-export default bubbleSort;
+export default Bubblesort;

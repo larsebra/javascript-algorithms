@@ -1,9 +1,8 @@
 import LinkedList from "./LinkedList";
 /**
  * Class representing a queue. This representation uses an LinkedList as base structure, it uses Linked Lists unshift and pop for
- * enqueueing and dequeueing. Should not be used when performance is important, use Queue, a circular buffer queue instead.
- * However this class does not have any limitiations on how many elements there can be in the list, other than the
- * limitations on the native Array object itself. It is not a plan to maintain this structure.
+ * enqueueing and dequeueing. This class does not have any limitiations on how many elements there can be in the list, other than the
+ * limitations on the native Array object itself.
  * @class
  */
 export default class QueueAsList{

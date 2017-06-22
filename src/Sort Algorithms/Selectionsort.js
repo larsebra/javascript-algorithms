@@ -5,7 +5,7 @@
  *    .   ) |    |    |    \      |   | \   / |  | .   ) \   / |  \   |
  *     `-'  `--' `--' `--'  `-'   '   '  `-'  '  '  `-'   `-'  '  '   '
  *
- * selectionSort - Selectionsort implemented as a pure JavaScript function. Selection sort should not be used on
+ * Selectionsort - Selectionsort implemented as a pure JavaScript function. Selection sort should not be used on
  * large collection due to its poor performance. It uses the given
  * comparator function to order the elements, see below for more information on the comparator function.
  *
@@ -25,7 +25,7 @@
  *
  * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
-function selectionSort(array, comparator){
+function Selectionsort(array, comparator){
   var sortedArray = array.slice(0);
   for(var x = 0; x < sortedArray.length - 1; x++){
 
@@ -47,4 +47,4 @@ function selectionSort(array, comparator){
   return sortedArray;
 }
 
-export default selectionSort;
+export default Selectionsort;

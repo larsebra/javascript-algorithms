@@ -9,7 +9,7 @@ import swap from "../Common/Swap.js"
  *      (_(__)      (__)   \_)-' '-(_/  (__)(__)  \.)   (_/   (__)           (__)    (__)  (__) (__) (__)
  *
  *
- * quickSort - Quicksort implemented as a js function. This function is not pure,
+ * Quicksort - Quicksort implemented as a js function. This function is not pure,
  * it changes the input array. It sorts the given array, and uses the given comparator
  * to compare the elements, what the this function returns plays a role in whether it will sorts
  * the elements in ascending or descending order.
@@ -30,19 +30,19 @@ import swap from "../Common/Swap.js"
  *
  * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
-function quickSort(array, comparator){
-  quickSortInternal(array, 0, array.length - 1, comparator);
+function Quicksort(array, comparator){
+  QuicksortInternal(array, 0, array.length - 1, comparator);
 }
 
 /**
- * quickSortInternal - The internal quicksort function.
+ * QuicksortInternal - The internal Quicksort function.
  *
  * @param  {Array}  array The array to sort.
  * @param  {Number} left  left boundary pointer index
  * @param  {Number} right right boundary pointer index
  * @return {none}   none
  */
-function quickSortInternal(array, left, right, comparator){
+function QuicksortInternal(array, left, right, comparator){
   //Base case
   if((right - left) < 1){
     return;
@@ -63,8 +63,8 @@ function quickSortInternal(array, left, right, comparator){
   var p2_right = right;
 
   //Partition left and right of pivot
-  quickSortInternal(array, p1_left, p1_right, comparator);//quickSort P1
-  quickSortInternal(array, p2_left, p2_right, comparator);//quickSort P2
+  QuicksortInternal(array, p1_left, p1_right, comparator);//Quicksort P1
+  QuicksortInternal(array, p2_left, p2_right, comparator);//Quicksort P2
 }
 
 /**
@@ -125,4 +125,4 @@ function partition(array, left, right, pivot_index, comparator){
   return pivot_index;
 }
 
-export default quickSort;
+export default Quicksort;

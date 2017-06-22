@@ -6,10 +6,10 @@
  *      \/_/  \/_/ \/_____/ \/_/ /_/ \/_____/ \/_____/ \/_____/ \/_____/ \/_/ /_/  \/_/
  *
  *
- * mergeSort - MergeSort implemented as a pure javascript function. It uses the given
+ * Mergesort - Mergesort implemented as a pure javascript function. It uses the given
  * comparator function to order the elements, see below for more information on the comparator function.
  * This implmentation is still a bit slow, I assume it is because of Arrays native methods push, shift, slice.
- * I will look in to this, in mean time use quicksort.
+ * I will look in to this, in mean time use Quicksort.
  *
  * The comparator function should have the following form: compare(a,b), and return a number; > 0, < 0 or 0.
  * If ascending order is wanted, compare(a, b) must yield a number < 0, this will sort a to an index lower than b.
@@ -27,7 +27,7 @@
  *
  * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
-function mergeSort(array, comparator){
+function Mergesort(array, comparator){
   //Base case
   if(array.length === 1){
     return array;
@@ -39,8 +39,8 @@ function mergeSort(array, comparator){
   var a2 = array.slice(middle, array.length);
 
   //Divide further and sort.
-  var na1 = mergeSort(a1, comparator);
-  var na2 = mergeSort(a2, comparator);
+  var na1 = Mergesort(a1, comparator);
+  var na2 = Mergesort(a2, comparator);
 
   //The array containing all elements from na1 and na2 sorted.
   var sortedArray = [];
@@ -67,4 +67,4 @@ function mergeSort(array, comparator){
   return sortedArray;
 }
 
-export default mergeSort;
+export default Mergesort;

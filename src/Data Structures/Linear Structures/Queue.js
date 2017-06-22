@@ -1,7 +1,7 @@
 import RingBuffer from "./RingBuffer"
 /**
  * Class representing a queue. It uses an array of given size as base structure.
- * This queues is implemented as using the RingBuffer class.
+ * This queues is implemented using the RingBuffer class.
  * It is faster than using Array class native methods(Push and shift) for queueing an enqueueing.
  * There is one limitiation however, the queues size is finite, it has the size of the given input size at initialization,
  * this size is given to the constructor. It is called queue because this is, as for now, the standard

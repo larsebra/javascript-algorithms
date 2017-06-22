@@ -18,17 +18,17 @@ import BinaryHeap from "../Data Structures/Trees/BinaryHeap.js"
  *  A:::::A                 A:::::A
  * AAAAAAA                   AAAAAAA
  *
- * AStar - This is a implementation of the A* algorithm for a directed graph implemented as a 2D array.
+ * aStar - This is a implementation of the A* algorithm for a directed graph implemented as a 2D array.
  *  A* is a algorithm for finding the shortest path from a node to another in a graph using a heuristic function.
- *  It is very similar to dijkstras algorithm, if the heuristic in Astar returns 0 for all inputs, it will work in almost the same way
+ *  It is very similar to dijkstras algorithm, if the heuristic in aStar returns 0 for all inputs, it will work in almost the same way
  *  as dijkstraas. It is important for the heuristic to be admissable to be able to find the optimal path,
  *  see below for more information on this. For the algorithm to be effective and do as little work as possible,
  *  it should not revisit nodes, therefore it is important that the heuristic is monotone,
- *  see below for more information. All in all the property of the heuristic is very important for the Astar to work
+ *  see below for more information. All in all the property of the heuristic is very important for the aStar to work
  *  correctly and efficient.
  *
  * Optimal path:
- *  The heuristic plays a major part on finding the optimal path. If Astar should find the shortest path the heuristic must
+ *  The heuristic plays a major part on finding the optimal path. If aStar should find the shortest path the heuristic must
  *  be admissable or valid, this means that the heuristic must not over-estimate or under-estimate the cost to goal node,
  *  this can cause the algorithm to either not chose a path via x or to wrongly chose a path via x, this can cause the algorithm
  *  to not find the optimal path. In short this property must be true:  L(x) + h(x) <= L(x) + d(x,y) + h(y) = L(y) + h(y),
@@ -87,7 +87,7 @@ import BinaryHeap from "../Data Structures/Trees/BinaryHeap.js"
  * @todo throw something
  * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
-export function AStar(fromNode, toNode, graph, heuristic){
+export function aStar(fromNode, toNode, graph, heuristic){
   if(!(0 < fromNode && fromNode < graph.length) && !(0 < toNode && toNode < graph.length)){
     //Throw something
   }

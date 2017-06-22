@@ -12,7 +12,7 @@ describe("Binary Heap", () => {
   describe('MinBinHeap', function() {
     this.timeout(5000)
     //Set time out, when random array is big it can take some ms to finish.
-    // 1. it has to sort the array with quicksort
+    // 1. it has to sort the array with Quicksort
     // 2. it has to add a lot of values to the heap and removing them
     //Make copy of random array.
     var sortedAr = randomArray.slice(0);
@@ -117,7 +117,7 @@ describe("Binary Heap", () => {
   describe('MaxBinHeap', function() {
     this.timeout(5000)
     //Set time out, when random array is big it can take some ms to finish.
-    // 1. it has to sort the array with quicksort
+    // 1. it has to sort the array with Quicksort
     // 2. it has to add a lot of values to the heap and removing them
     //Make copy of random array.
     var sortedAr = randomArray.slice(0);

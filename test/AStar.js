@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {AStar} from "../src/Path Finding/A*";
+import {aStar} from "../src/Path Finding/A*";
 import {compareArray} from "./test-tools/Arrays.js";
 
 describe("A*", ()=>{
@@ -26,8 +26,8 @@ describe("A*", ()=>{
       /* E */ [-1 ,-1 ,-1 ,-1 ,-5 ]
     ];
 
-    var AStarShortestPath = AStar(0, 4, graph1, h);
+    var aStarShortestPath = aStar(0, 4, graph1, h);
     var actualShortestPath = [0,1,2,3,4];
-    expect(compareArray(actualShortestPath, AStarShortestPath)).to.be.true;
+    expect(compareArray(actualShortestPath, aStarShortestPath)).to.be.true;
   })
 });

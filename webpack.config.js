@@ -6,11 +6,14 @@ module.exports = {
   output: {
     filename: "lib.js",
     path: __dirname + "/lib",
+    library: "algdat",
+    libraryTarget: "umd"
   },
 
   resolve:{
-    extensions:[".js",",json"]
+    extensions:[".js",".json"]
   },
+
   module: {
     loaders: [
       {

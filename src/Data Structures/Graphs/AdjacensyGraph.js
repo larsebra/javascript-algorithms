@@ -36,7 +36,7 @@ class AdjacencyGraph{
     //Need a priority queue of some sort
   }
 
-  AStar(fromNode, toNode, heuristic){
+  aStar(fromNode, toNode, heuristic){
     //Need a priority queue of some sort.
   }
 }

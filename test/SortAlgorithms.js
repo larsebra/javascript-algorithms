@@ -1,10 +1,10 @@
 import {expect} from "chai";
 import {compareArray, randomArrayGenerator } from "./test-tools/Arrays.js";
 
-import quickSort from "../src/Sort Algorithms/Quicksort";
-import mergeSort from "../src/Sort Algorithms/MergeSort";
-import selectionSort from "../src/Sort Algorithms/SelectionSort";
-import bubbleSort from "../src/Sort Algorithms/BubbleSort";
+import Quicksort from "../src/Sort Algorithms/Quicksort";
+import Mergesort from "../src/Sort Algorithms/Mergesort";
+import Selectionsort from "../src/Sort Algorithms/Selectionsort";
+import Bubblesort from "../src/Sort Algorithms/Bubblesort";
 
 
 describe("Linear Sort Algorithms", function () {
@@ -15,8 +15,8 @@ describe("Linear Sort Algorithms", function () {
   var asceArray = randomArray.slice(0);
   var descArray = randomArray.slice(0);
 
-  describe("Googles QuickSort: Sorting " + numbersToSort + " random numbers. Used here to sort a copy of the random array so we can check the correctnes of the other algorithms", function () {
-    it("Googles quicksort should sort the array of random numbers in ascending order within reasonable time", function () {
+  describe("Googles Quicksort: Sorting " + numbersToSort + " random numbers. Used here to sort a copy of the random array so we can check the correctnes of the other algorithms", function () {
+    it("Googles Quicksort should sort the array of random numbers in ascending order within reasonable time", function () {
       this.timeout(1000);
       asceArray.sort((a,b) => {
         if(a < b){
@@ -30,7 +30,7 @@ describe("Linear Sort Algorithms", function () {
         }
       });
     });
-    it("Googles quicksort should sort the array of random numbers in descending within reasonable time", function () {
+    it("Googles Quicksort should sort the array of random numbers in descending within reasonable time", function () {
       this.timeout(1000);
       descArray.sort((a,b) => {
         if(a < b){
@@ -46,8 +46,8 @@ describe("Linear Sort Algorithms", function () {
     });
   });
 
-  describe("QuickSort: Sorting " + numbersToSort + " random numbers", function () {
-    it('Should sort the array elements in ascending order as googles quicksort does.', () => {
+  describe("Quicksort: Sorting " + numbersToSort + " random numbers", function () {
+    it('Should sort the array elements in ascending order as googles Quicksort does.', () => {
       this.timeout(1000);
       var array1 = randomArray.slice(0);
       var comparator = function(a,b) {
@@ -61,11 +61,11 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      quickSort(array1, comparator);
+      Quicksort(array1, comparator);
       expect(compareArray(array1, asceArray)).to.be.true;
     });
 
-    it('Should sort the array elements in descending order as googles quicksort does.', () => {
+    it('Should sort the array elements in descending order as googles Quicksort does.', () => {
       this.timeout(1000);
       var array1 = randomArray.slice(0);
       var comparator = function(a,b) {
@@ -79,12 +79,12 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      quickSort(array1, comparator);
+      Quicksort(array1, comparator);
       expect(compareArray(array1, descArray)).to.be.true;
     });
   });
 
-  describe("MergeSort: Sorting " + numbersToSort + " random numbers", function () {
+  describe("Mergesort: Sorting " + numbersToSort + " random numbers", function () {
     it('Should sort the elements correctly in incrementing order as the native environment sort algorithm does.', function() {
       this.timeout(1000);
       var array1 = randomArray.slice(0);
@@ -99,7 +99,7 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      array1 = mergeSort(array1, comparator);//This is a pure function so it will return a new array;
+      array1 = Mergesort(array1, comparator);//This is a pure function so it will return a new array;
       expect(compareArray(array1, asceArray)).to.be.true;
     });
     it('Should sort the elements correctly in descending order as the native environment sort algorithm does.', function() {
@@ -116,7 +116,7 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      array1 = mergeSort(array1, comparator);//This is a pure function so it will return a new array;
+      array1 = Mergesort(array1, comparator);//This is a pure function so it will return a new array;
       expect(compareArray(array1, descArray)).to.be.true;
     });
   });
@@ -155,7 +155,7 @@ describe("Linear Sort Algorithms", function () {
       }
     });
 
-  describe('SelectionSort, Sorting 1000 elements', function () {
+  describe('Selectionsort, Sorting 1000 elements', function () {
     it('Should sort the elements correctly in ascending order as the native environment sort algorithm does.', function() {
       this.timeout(1000);
       var array1 = randomSBArray.slice(0);
@@ -170,7 +170,7 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      array1 = selectionSort(array1, comparator);//This is a pure function so it will return a new array;
+      array1 = Selectionsort(array1, comparator);//This is a pure function so it will return a new array;
       expect(compareArray(array1, asceSBArray)).to.be.true;
     });
 
@@ -188,12 +188,12 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      array1 = selectionSort(array1, comparator);//This is a pure function so it will return a new array;
+      array1 = Selectionsort(array1, comparator);//This is a pure function so it will return a new array;
       expect(compareArray(array1, descSBArray)).to.be.true;
     });
   });
 
-  describe('BubbleSort, sorting 1000 elements', function () {
+  describe('Bubblesort, sorting 1000 elements', function () {
     it('Should sort the elements correctly in ascending order as the native environment sort algorithm does.', function() {
       this.timeout(1000);
       var array1 = randomSBArray.slice(0);
@@ -208,7 +208,7 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      array1 = bubbleSort(array1, comparator);//This is a pure function so it will return a new array;
+      array1 = Bubblesort(array1, comparator);//This is a pure function so it will return a new array;
       expect(compareArray(array1, asceSBArray)).to.be.true;
     });
 
@@ -226,7 +226,7 @@ describe("Linear Sort Algorithms", function () {
           return 0;
         }
       }
-      array1 = bubbleSort(array1, comparator);//This is a pure function so it will return a new array;
+      array1 = Bubblesort(array1, comparator);//This is a pure function so it will return a new array;
       expect(compareArray(array1, descSBArray)).to.be.true;
     });
   });
