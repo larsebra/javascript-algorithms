@@ -4,7 +4,7 @@ import BinaryHeap from "../src/Data Structures/Trees/BinaryHeap";
 
 describe("Binary Heap", () => {
   //Make an array that is going to be added to the heap. This array is not changed belowed.
-  var numberOfElements = 1000000;
+  var numberOfElements = 100000;
   var rangeOfElement = 10000;
   var allowNegativeNumbers = true;
   var randomArray = randomArrayGenerator(rangeOfElement, numberOfElements, 0, allowNegativeNumbers);

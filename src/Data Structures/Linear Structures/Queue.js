@@ -10,8 +10,9 @@ import RingBuffer from "./RingBuffer"
  * @author Lars Erik Bratlie <lars00.brat@gmail.com>
  */
 export default class Queue{
+
  /**
-  * constructor - makes a array as a base structure. The queue becomes as big as the size of the array
+  * constructor - makes an array as a base structure. The queue becomes as big as the size of the array
   *
   * @param  {Number} number The size of the queue
   */
