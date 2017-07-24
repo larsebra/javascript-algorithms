@@ -608,4 +608,27 @@ describe("AVLTree", function(){
     expect(tree.find(999)).to.equal(null, "Could not find value added to the tree after adding");
   });
 
+  it("Testing find smallest method", function(){
+    var tree = new AVLTree(compareFunction);
+    var array = [10, 5, 7, 3];
+    for(let n of array){
+      tree.push(n);
+    }
+
+    //Checking if smallest value is found
+    expect(tree.findSmallest()).to.equal(3, "Smallest value not found");
+    tree.push(2);
+    expect(tree.findSmallest()).to.equal(2, "Smallest value not found");
+    tree.push(1);
+    expect(tree.findSmallest()).to.equal(1, "Smallest value not found");
+    tree.push(0);
+    expect(tree.findSmallest()).to.equal(0, "Smallest value not found");
+    tree.push(-1);
+    expect(tree.findSmallest()).to.equal(-1, "Smallest value not found");
+    tree.push(11);
+    expect(tree.findSmallest()).to.equal(-1, "Smallest value not found");
+    tree.push(13);
+    expect(tree.findSmallest()).to.equal(-1, "Smallest value not found");
+  });
+
 });
