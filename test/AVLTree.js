@@ -34,7 +34,7 @@ describe("AVLTree", function(){
     root.setLeftChild(lc);
     root.setRightChild(rc);
 
-    //Make left subtree of root.
+    //Make left subtree of root..
     lc.setLeftChild(lclc);
     lc.setRightChild(lcrc);
     lclc.setLeftChild(lclclc);
@@ -629,6 +629,137 @@ describe("AVLTree", function(){
     expect(tree.findSmallest()).to.equal(-1, "Smallest value not found");
     tree.push(13);
     expect(tree.findSmallest()).to.equal(-1, "Smallest value not found");
+  });
+
+
+  it("Testing remove smallest method", function(){
+    var tree = new AVLTree(compareFunction);
+    var array = [10, 12, 3];
+    for(let n of array){
+      tree.push(n);
+    }
+
+    //Checking if smallest value is found
+    expect(tree.popSmallest()).to.equal(3, "Smallest value not found");
+    expect(tree.find(3)).to.equal(null, "The node was not removed from the tree");
+    expect(tree.size()).to.equal(2, "Returns the wrong size after removing smallest, should be 3");
+  });
+
+  it("Testing remove biggest method", function(){
+    var tree = new AVLTree(compareFunction);
+    var array = [10, 12, 5, 3, 7, 8];
+    for(let n of array){
+      tree.push(n);
+    }
+    expect(tree._root.getVal()).to.equal(7);
+
+    expect(tree._root.getLeftChild().getVal()).to.equal(5);
+
+    expect(tree._root.getLeftChild().getLeftChild().getVal()).to.equal(3);
+
+    expect(tree._root.getRightChild().getVal()).to.equal(10);
+    expect(tree._root.getRightChild().getLeftChild().getVal()).to.equal(8);
+    expect(tree._root.getRightChild().getRightChild().getVal()).to.equal(12);
+
+    //Checking if smallest value is found
+    expect(tree.popBiggest()).to.equal(12, "Biggest value not found");
+    expect(tree.find(12)).to.equal(null, "The node was not removed from the tree");
+    expect(tree.size()).to.equal(5, "Returns the wrong size after removing smallest, should be 3");
+    expect(tree._root.getVal()).to.equal(7, "Wrong root after removing biggest");
+
+    expect(tree.popBiggest()).to.equal(10, "Wrong root after removing biggest");
+    expect(tree.size()).to.equal(4, "Returns the wrong size after removing smallest, should be 3");
+    expect(tree.find(10)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(7, "Wrong root after removing biggest");
+
+    expect(tree.popBiggest()).to.equal(8, "Wrong root after removing biggest");
+    expect(tree.size()).to.equal(3, "Returns the wrong size after removing smallest, should be 3");
+    expect(tree.find(8)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(5, "Wrong root after removing biggest");
+
+    expect(tree.popBiggest()).to.equal(7, "Wrong root after removing biggest");
+    expect(tree.size()).to.equal(2, "Returns the wrong size after removing smallest, should be 3");
+    expect(tree.find(7)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(5, "Wrong root after removing biggest");
+
+    expect(tree.popBiggest()).to.equal(5, "Wrong root after removing biggest");
+    expect(tree.size()).to.equal(1, "Returns the wrong size after removing smallest, should be 3");
+    expect(tree.find(5)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(3, "Wrong root after removing biggest");
+
+    expect(tree.popBiggest()).to.equal(3, "Wrong root after removing biggest");
+    expect(tree.size()).to.equal(0, "Returns the wrong size after removing smallest, should be 3");
+    expect(tree.find(3)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root).to.equal(null, "Wrong root after removing biggest");
+
+  });
+
+  it("Testing remove value method", function(){
+
+    //Building the tree
+    var tree = new AVLTree(compareFunction);
+    var array = [10, 12, 5, 3, 7, 8];
+    for(let n of array){
+      tree.push(n);
+    }
+
+    //Remove tree and check tree properties are valid after removal
+    expect(tree.pop(3)).to.equal(3, "pop returns wrong value");
+    expect(tree.pop(3)).to.equal(null, "pop returns wrong value");
+    expect(tree.find(3)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(7);
+    expect(tree._root.getLeftChild().getVal()).to.equal(5);
+    expect(tree._root.getLeftChild().getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getVal()).to.equal(10);
+    expect(tree._root.getRightChild().getLeftChild().getVal()).to.equal(8);
+    expect(tree._root.getRightChild().getRightChild().getVal()).to.equal(12);
+    expect(tree.size()).to.equal(5);
+
+    expect(tree.pop(7)).to.equal(7, "pop returns wrong value");
+    expect(tree.pop(7)).to.equal(null, "pop returns wrong value");
+    expect(tree.find(7)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(8);
+    expect(tree._root.getLeftChild().getVal()).to.equal(5);
+    expect(tree._root.getLeftChild().getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getVal()).to.equal(10);
+    expect(tree._root.getRightChild().getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getRightChild().getVal()).to.equal(12);
+    expect(tree.size()).to.equal(4);
+
+    expect(tree.pop(5)).to.equal(5, "pop returns wrong value");
+    expect(tree.pop(5)).to.equal(null, "pop returns wrong value");
+    expect(tree.find(5)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(10);
+    expect(tree._root.getLeftChild().getVal()).to.equal(8);
+    expect(tree._root.getLeftChild().getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getVal()).to.equal(12);
+    expect(tree._root.getRightChild().getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getRightChild()).to.equal(null);
+    expect(tree.size()).to.equal(3);
+
+    expect(tree.pop(10)).to.equal(10, "pop returns wrong value");
+    expect(tree.pop(10)).to.equal(null, "pop returns wrong value");
+    expect(tree.find(10)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(8);
+    expect(tree._root.getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getVal()).to.equal(12);
+    expect(tree._root.getRightChild().getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild().getRightChild()).to.equal(null);
+    expect(tree.size()).to.equal(2);
+
+    expect(tree.pop(8)).to.equal(8, "pop returns wrong value");
+    expect(tree.pop(8)).to.equal(null, "pop returns wrong value");
+    expect(tree.find(8)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root.getVal()).to.equal(12);
+    expect(tree._root.getLeftChild()).to.equal(null);
+    expect(tree._root.getRightChild()).to.equal(null);
+    expect(tree.size()).to.equal(1);
+
+    expect(tree.pop(12)).to.equal(12, "pop returns wrong value");
+    expect(()=>tree.pop(12)).to.throw("Tree is empty");
+    expect(tree.find(12)).to.equal(null, "The node was not removed from the tree");
+    expect(tree._root).to.equal(null);
+    expect(tree.size()).to.equal(0);
   });
 
 });

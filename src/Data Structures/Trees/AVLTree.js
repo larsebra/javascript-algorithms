@@ -46,6 +46,7 @@ export default class AVLTree {
    *
    * @return {Object}  The list object starting at beginning and ending and list size()
    */
+   /*
   *[Symbol.iterator](){
       let iter_next = this.root;
       do{
@@ -54,6 +55,7 @@ export default class AVLTree {
       }
       while(iter_next !== this.first);
   }
+  */
 
   /**
    * findSmallest - Finds The samallest value in tree.
@@ -187,12 +189,14 @@ export default class AVLTree {
     return this._rotateRight(root);
   }
 
+
   /**
-   * _rotationHelper - Helper method to rotate an unbalanced tree. It checks if the tree is in inbalance,
+   *  _rotationHelper - Helper method to rotate an unbalanced tree. It checks if the tree is in inbalance,
    * if not it just returns, but if it is inbalance it rotates the tree according to the rules and returns
    * the new root.
    *
-   * @return {type}  description
+   * @param  {BinaryTreeNode} root The root to check and rotate around
+   * @return {BinaryTreeNode}      The new root, after rotation(s) has been performed.
    */
   _rotationHelper(root){
     //This variable contains the new root after/if rotated, otherwise current root is kept
@@ -235,109 +239,163 @@ export default class AVLTree {
       throw e;
     }
 
-    //Stores the result if the new node was found.
-    var result = null;
-
-    //Contains the new root if node was found and removed, otherwise it is null
-    var newRoot = this._popHelper(this._root, val, result);
+    //Contains an object with the new root and the node with the given value. The object is on the following form: {result: BinaryTreeNode|Null, newRoot = BinaryTreeNod|Null}.
+    var res = this._popHelper(this._root, val);
 
     //If return value from PopHelper is null, the value to search for does not exist.
-    if(newRoot == null){
-      result = null;
+    if(res.result == null){
+      return null;
     }
     else{//Node was found and removed
       this._length--;
-      this._root = newRoot;
-      result = result.getVal();
+      this._root = res.newRoot;
+      return res.result.getVal();
     }
-
-    return result;
   }
 
 
 
   /**
-   * _popHelper - Locates the given value, removes it and returns the node with the value. After removing
+   * _popHelper - Locates the node with the given value, removes it and returns the node with the value. After removing
    * Tree gets balanced again by rotation if needed.
    *
    * @param  {BinaryTreeNode} root The tree to search in.
    * @param  {Object} val  The given val to search for
-   * @return {Object}      Null if given value does not exists, otherwise object is returned
+   * @param  {BinaryTreeNode} val  An variable to reference the removed node, if no value is given there is no way to get the removed node
+   * @return {Object}  An object containing the result and the new root. The object will be on the following form: {result: BinaryTreeNode|Null, newRoot = BinaryTreeNod|Null}
+   *                   It is possible that the the result could be null or/and newRoot could be null.
    */
-  _popHelper(root, val, result){
+  _popHelper(root, val){
     if(root == null){
-      return null;
+      return {"result" : null , "newRoot" : null};
     }
+
+    var res = {};
 
     //Base case; node with value is found.
     if(this._comparator(val, root.getVal()) === 0){
-      //Find smallest node in current tree and replace it with current node
-      result = root;
+      let newRoot = null;
 
-      var newRoot = this._findSmallestHelper(root);
-
-      if(root.hasLeftChild()){
-        _removeSmallestNode(root)
+      //First check if root has a left child. I also check if left height is bigger, I belive that can prevent rotations later. I have yet to proove this
+      if(root.hasLeftChild() && (root.leftHeight >= root.rightHeight)){
+        //Find the largest node in the left subtree, and replace it with root.
+        let res = this._popBiggestNode(root.removeLeftChild());
+        newRoot = res.result;
+        newRoot.setLeftChild(res.newRoot);
+        newRoot.setRightChild(root.removeRightChild());
       }
+      //If root has a right child and the height is bigger. I also check if left height is bigger, I belive that can prevent rotations later. I have yet to proove this
       else if(root.hasRightChild()){
-
+        //Find the smallest node in the right subtree and replace it with root.
+        let res = this._popSmallestNode(root.removeRightChild());
+        newRoot = res.result;
+        newRoot.setLeftChild(root.removeLeftChild());
+        newRoot.setRightChild(res.newRoot);
       }
+      //If it has no children, the root is a leaf, no need to rotate
       else{
-
+        return {"result" : root, "newRoot" :null};
       }
 
-      root = newRoot;
+      //Check for inbalance, rotate and return object with result and new root.
+      return {"result" : root ,"newRoot": this._rotationHelper(newRoot)};
     }
     //Go down left tree iff val is smaller
-    else if(this._comparator(val, root.getVal()) < 0){
+    else if(this._comparator(val, root.getVal()) <= 0){
       //Go down left subtree if it exists
       if(root.hasLeftChild()){
-        var oldLeft = root.removeLeftChild()
-        var newLeft = this._popHelper(oldLeft, val, result);
-        if(newLeft == null){
-          root.setLeftChild(oldLeft);
-          return null;
-        }
-        else{
-          root.setLeftChild(newLeft);
-        }
+        res = this._popHelper(root.removeLeftChild(), val);
+        root.setLeftChild(res.newRoot);
       }
       else{
-        //Node with value does not exist
-        return null;
+        //Node with value does not exists
+        return {"result" : null, "newRoot" :root};
       }
     }
     //Else the new node must be larger, go down right subtree.
     else{
       //Go down right subtree if it exists
       if(root.hasRightChild()){
-        var oldRight = root.removeRightChild();
-        var newRight = this._popHelper(oldRight, val, result);
-        if(newRight == null){
-          root.setRightChild(oldRight);
-          return null
-        }
-        else{
-          root.setRightChild(newRight);
-        }
+        res = this._popHelper(root.removeRightChild(), val);
+        root.setRightChild(res.newRoot);
       }
       else{
         //Node with value does not exists
-        return null;
+        return {"result" : null, "newRoot" :root};
       }
     }
+    //Check for inbalance, rotate and return object with result and new root.
+    return {"result" : res.result ,"newRoot": this._rotationHelper(root)};
+  }
 
-    return this._ratationHelper(root);
+
+  /**
+   * popBiggestVal - Returns and removes the biggest value in the tree.
+   * Uses _popBiggestNode as helper method, @see {@link AVLTree#_popSmallestNode} for more information.
+   *
+   * @return {Object}  Returns the biggest value in the tree iff it exists, null otherwise.
+   * @throws {Error} When tree is empty.
+   */
+  popBiggest(){
+    if(this.isEmpty()){
+      var e = new Error();
+      e.name = "EmptyTreeError";
+      e.message = "Cannot remove biggest value, tree is empty";
+      throw e;
+    }
+
+    //_popBiggestNode returns an object on this form {result: BinaryTreeNode|null, newRoot = BinaryTreeNode|null}
+    var res = this._popBiggestNode(this._root);
+
+    //Getting the value from the result object
+    var biggestNode = res.result;
+    this._root = res.newRoot;
+
+    //Checking the result objects
+    if(biggestNode == null){
+      return null;
+    }
+    else{
+      this._length--;
+      return biggestNode.getVal();
+    }
   }
 
   /**
-   * _removeSmallestNodeHelper - Finds and removes the smallest node in the tree, and finally returns the
-   * smallest node with the children
+   * _popBiggestNode - Finds the node with the largest value in the given tree and returns it. The tree will be balanced after removal.
+   * The function will return an object on the following form {result: BinaryTreeNode|null, newRoot = BinaryTreeNode|null}.
    *
-   * @param  {type} root description
-   * @return {type}      description
+   * @param  {BinaryTreeNode} root Root of the tree to remove the largest node from
+   * @param  {BinaryTreeNode} result reference to the node with the larger value.
+   * @return {Object}  An object containing the result and the new root. The object will be on the following form: {result: BinaryTreeNode|Null, newRoot = BinaryTreeNod|Null
+   *                   It is possible that the the result could be null or/and newRoot could be null.
    */
-  removeSmallestVal(){
+  _popBiggestNode(root){
+    //If it has right child, go down that branch and check further for node with larger value
+    if(root.hasRightChild()){
+      var res  =  this._popBiggestNode(root.removeRightChild());
+
+      root.setRightChild(res.newRoot);//If the new right child is null, right child will be set to null and height to 0;
+
+      //Finally return the new root or tree which is balanced with the found value if there is one.
+      return {"result": res.result , "newRoot" : this._rotationHelper(root)};
+    }
+    //The smallest value must be root, since it is no more right children in the tree.
+    else{
+        //No need to rotate left child, it should allready be balanced when adding, and it does not matter if it has no child(removeLeftChild will remove null)
+        return {"result": root, "newRoot" : root.removeLeftChild()};
+    }
+  }
+
+
+  /**
+   * popSmallestVal - Finds the smallest value in the tree, removes it from the tree, and returns the value. The tree will be balanced after removal.
+   * This methiod uses _popSmallestNode as helper method, @see {@link AVLTree#_popSmallestNode} for more information.
+   *
+   * @return {Object}  Returns the value with the smallest node iff the value exists in the tree, null otherwise.
+   * @throws {Error}   When tree is empty.
+   */
+  popSmallest(){
     if(this.isEmpty()){
       var e = new Error();
       e.name = "EmptyTreeError";
@@ -345,30 +403,47 @@ export default class AVLTree {
       throw e;
     }
 
-    var smallestNode = null;
-    this._root =  _removeSmallestNodeHelper(this._root, smallestNode);
-    return smallestNode.getVal();
+    //_popSmallestNode returns an object on this form {result: BinaryTreeNode, newRoot = BinaryTreeNode}
+    var res = this._popSmallestNode(this._root);
+
+    //Getting the value from the result object
+    var smallestNode = res.result;
+    this._root = res.newRoot;
+
+    //Checking the result objects
+    if(smallestNode == null){
+      return null;
+    }
+    else{
+      this._length--;
+      return smallestNode.getVal();
+    }
   }
 
   /**
-   * _removeSmallestNodeHelper - Finds and removes the smallest node in the tree, and finally returns the
+   * _popSmallestNode - Finds and removes the smallest node in the tree, and finally returns the
    * smallest node with the children
    *
-   * @param  {type} root description
-   * @return {type}      description
+   * @param  {BinaryTreeNode} root Root of the tree to remove the smallest node from
+   * @param  {BinaryTreeNode} result reference to the node with the smallest value.
+   * @return {Object}  An object containing the result and the new root. The object will be on the following form: {result: BinaryTreeNode|Null, newRoot = BinaryTreeNod|Null
+   *                   It is possible that the the result could be null or/and newRoot could be null.
    */
-  _removeSmallestNodeHelper(root, prevRoot, result){
-    if(root == null){
-      return null;
-    }
+  _popSmallestNode(root){
+    //If it has left child, go downs that branch and check further for node with larger value
     if(root.hasLeftChild()){
-      this._removeSmallestNode(root.getLeftChild(), root, result);
+      var result  =  this._popSmallestNode(root.removeLeftChild(), result);
+
+      root.setLeftChild(result.newRoot);//If the new right child is null, right child will be set to null and height to 0;
+
+      //Finally return the new root or tree which is balanced with the found value if there is one.
+      return {"result": result.result , "newRoot" : this._rotationHelper(root)};
     }
-    else{//Smallest found
-      result = prevRoot.removeLeftChild();
-      return;
+    //The smallest value must be root, since it is no more right children in the tree.
+    else{
+      //No need to rotate right child tree, it should allready been rotated when inserting
+      return {"result": root , "newRoot" : root.removeRightChild()};
     }
-    return _rotationHelper(root);
   }
 
   /**
