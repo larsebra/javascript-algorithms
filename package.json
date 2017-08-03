@@ -32,6 +32,6 @@
     "chai": "^3.5.0",
     "mocha": "^3.5.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack": "^3.0.0"
+    "webpack": "^3.4.1"
   }
 }

@@ -22,6 +22,10 @@ import breadthFirstSearch from "./src/Path Finding/BFS";
 import dijkstras from "./src/Path Finding/BFS";
 import aStar from "./src/Path Finding/A*";
 
+//Trees
+import BinaryHeap from "./src/Data Structures/Trees/BinaryHeap";
+import AVLTree from "./src/Data Structures/Trees/AVLTree";
+
 export {
   /* Linear Datastructures */
   LinkedList,
@@ -44,5 +48,9 @@ export {
   /* Path Finding */
   breadthFirstSearch,
   dijkstras,
-  aStar
+  aStar,
+
+  /*Trees*/
+  BinaryHeap,
+  AVLTree
 };
