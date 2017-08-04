@@ -762,4 +762,40 @@ describe("AVLTree", function(){
     expect(tree.size()).to.equal(0);
   });
 
+  it("Test traverseInOrderAsc method and iterator", function(){
+    //Building the tree
+    var tree = new AVLTree(compareFunction);
+    var array = [10, 12, 5, 3, 7, 8];
+    for(let n of array){
+      tree.push(n);
+    }
+    array = [3,5,7,8,10,12];
+    let i = 0;
+    for(let val of tree.traverseInOrderAsc()){
+      expect(val).to.equal(array[i]);
+      i++;
+    }
+
+    i = 0;
+    for(let val of tree){
+      expect(val).to.equal(array[i]);
+      i++;
+    }
+  });
+
+  it("Test traverseInOrderDsc method", function(){
+    //Building the tree
+    var tree = new AVLTree(compareFunction);
+    var array = [10, 12, 5, 3, 7, 8];
+    for(let n of array){
+      tree.push(n);
+    }
+    array = [12,10,8,7,5,3];
+    let i = 0;
+    for(let val of tree.traverseInOrderDsc()){
+      expect(val).to.equal(array[i]);
+      i++;
+    }
+  });
+
 });

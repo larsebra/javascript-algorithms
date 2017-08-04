@@ -42,20 +42,59 @@ export default class AVLTree {
    * /
 
   /**
-   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection
+   * Symbol - Make iterable. This is a generator used in for of loop to iterate over the collection in order and ascending fashion.
+   * It calls traverseInOrderAsc in this class, @see traverseInOrderAsc
    *
-   * @return {Object}  The list object starting at beginning and ending and list size()
+   * @yields {Object}  The type of the objects given to the tree.
    */
-   /*
-  *[Symbol.iterator](){
-      let iter_next = this.root;
-      do{
-        yield iter_next.getVal();
-        iter_next = iter_next.getNext();
-      }
-      while(iter_next !== this.first);
+
+  [Symbol.iterator](){
+    return this.traverseInOrderAsc();
   }
-  */
+
+  /**
+   * traverseInOrderAsc - Traverses the tree in order in ascending fashion
+   *
+   * @return {Iterator}  returns and iterator that can be called in for of loops
+   */
+  traverseInOrderAsc(){
+    if(this.isEmpty){
+
+    }
+    function * _traverseHelper(root){
+      if(root.hasLeftChild()){
+        yield *  _traverseHelper(root.getLeftChild());
+      }
+
+      yield root.getVal();
+
+      if(root.hasRightChild()){
+        yield * _traverseHelper(root.getRightChild());
+      }
+    }
+    return _traverseHelper(this._root);
+  }
+
+  /**
+   * traverseInOrderDsc - Traverses the tree in order in descending fashion.
+   *
+   * @return {Iterator}  An iterator that can be called in for of loops.
+   */
+  traverseInOrderDsc(){
+    function* _traverseHelper(root){
+      if(root.hasRightChild()){
+        yield *  _traverseHelper(root.getRightChild());
+      }
+
+      yield root.getVal();
+
+      if(root.hasLeftChild()){
+        yield * _traverseHelper(root.getLeftChild());
+      }
+    }
+
+    return _traverseHelper(this._root);
+  }
 
   /**
    * findSmallest - Finds The samallest value in tree.
@@ -70,7 +109,7 @@ export default class AVLTree {
    * _findaSmallestHelper - Helper method called recursively to find the smallest value in the tree
    *
    * @param  {BinaryTreeNode} root description
-   * @return {Object}      The smallest value in the given tree.
+   * @return {BinaryTreeNode}      The smallest value in the given tree.
    */
   _findaSmallestHelper(root){
     var leftChild = root.getLeftChild()
@@ -83,10 +122,11 @@ export default class AVLTree {
   }
 
   /**
-   * push - description
+   * push - Adds the given object to the tree, and rotates if necesarry, that is if
+   * the AVL properties of height inbalance between right and left  subtree is broken.
    *
-   * @param  {type} val description
-   * @return {type}     description
+   * @param  {Object} val The object to add
+   * @return {Number}     Returns the new number
    */
   push(val){
     //If tree is empty, just add and return
@@ -101,6 +141,15 @@ export default class AVLTree {
     return this._length;
  }
 
+ /**
+  * _pushHelper - private function to add a node to the tree. this method is called recursively to find the correct
+  * placement of the new node, then when the recursion goes up, or the calls returns again, it checks at each step
+  * if inbalance in the tree has occurred, if so it rotates.
+  *
+  * @param  {BinaryTreeNode} root    The root to add the new node in
+  * @param  {BinaryTreeNode} newNode The node with the value to add
+  * @return {BinaryTreeNode}         The new root of the tree.
+  */
  _pushHelper(root, newNode){
 
     //Check which subtree to go down.
